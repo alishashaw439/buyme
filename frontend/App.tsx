@@ -2,12 +2,11 @@ import React from 'react';
 import {
   SafeAreaView,
 } from 'react-native';
+import { Routes } from './Routes';
 
-function App(): JSX.Element {
-
+function App() {
   return (
-    <SafeAreaView>
-    </SafeAreaView>
+      <Routes></Routes>
   );
 }
 
