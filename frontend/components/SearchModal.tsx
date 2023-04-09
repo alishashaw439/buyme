@@ -92,12 +92,15 @@ const SearchItem = ({ price, name, imgSrc, handler }: { price: number, name: str
                 padding: 20,
                 borderRadius: 10,
                 backgroundColor: colors.color2,
-                elevation: 5,
+                elevation: 10,
                 width: "100%",
                 alignItems: "center",
                 justifyContent: "flex-end",
                 flexDirection: "row",
                 marginVertical: 30,
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 1 },
+                shadowOpacity: 0.3,
             }}>
 
                 <Image
@@ -117,7 +120,7 @@ const SearchItem = ({ price, name, imgSrc, handler }: { price: number, name: str
                 />
                 <View style={{ width: "80%", paddingHorizontal: 30 }}>
                     <Text numberOfLines={1}>{name}</Text>
-                    <Headline style={{ fontWeight: "900" }}>${price}</Headline>
+                    <Headline style={{ fontWeight: "900" }}>₹{price}</Headline>
                 </View>
             </View>
         </TouchableOpacity>

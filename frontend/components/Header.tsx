@@ -17,7 +17,7 @@ export const Header = ({ back,emptyCart }: { back: any,emptyCart:false }) => {
                     onPress={() => navigation.goBack()}
                 >
                     <Avatar.Icon
-                        style={{ backgroundColor: colors.color4 }}
+                        style={{ backgroundColor: colors.color4}}
                         icon="arrow-left" color={route.name === "productdetails" ? colors.color2 : colors.color3} 
                         
                         />

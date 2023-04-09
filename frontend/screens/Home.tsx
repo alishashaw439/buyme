@@ -1,7 +1,9 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { Avatar, Button } from "react-native-paper";
 import { Header } from "../components/Header";
+import { ProductCard } from "../components/ProductCard";
 import SearchModal from "../components/SearchModal";
 import { colors, styles } from "../styles/styles";
 
@@ -15,9 +17,22 @@ const products  = [
         price:20,
         name:"Sample",
         _id:"241",
+        stock:20,
         images:[
             {
-                url:"https://www.pngmart.com/image/179728/png/179727"
+                url:"https://www.pngmart.com/files/12/Bob-Minion-Transparent-PNG.png"
+            }
+        ]
+
+    },
+    {
+        price:40,
+        name:"Bello",
+        _id:"242",
+        stock:20,
+        images:[
+            {
+                url:"https://www.pngmart.com/files/12/Stuart-Minion-PNG-Pic.png"
             }
         ]
 
@@ -27,10 +42,14 @@ const products  = [
 export const Home = () => {
 
    const [category,setCategory] = useState("");
+   const navigation = useNavigation()
    const [activeSearch, setActiveSearch] = useState(false);
    const [searchQuery,setSearchQuery] = useState("")
    const categoryHandler = (id:any)=>{
        setCategory(id)
+   }
+   const addToCartHandler =(id:string)=>{
+    console.log("add to cart")
    }
    console.log(category)
     return (
@@ -52,7 +71,9 @@ setActiveSearch={setActiveSearch} products = {products} />}
                     <Text style={{ fontSize: 25, fontWeight: "900" }}>Products</Text>
                 </View>
                 {/* Search */}
-                <View>
+                <View style={{shadowColor: '#000',
+                shadowOffset: { width: 0, height: 1 },
+                shadowOpacity: 0.3}}>
                     <TouchableOpacity onPress={() => setActiveSearch((prev) => !prev)} >
                         <Avatar.Icon
                             icon="magnify"
@@ -87,6 +108,28 @@ setActiveSearch={setActiveSearch} products = {products} />}
                 })
                }
               </ScrollView>
+            </View>
+            <View style={{flex:1}}>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                    {
+                    products.map((item,index)=>{
+                        return(
+                            <ProductCard
+                              stock={item.stock}
+                              name={item.name}
+                              price={item.price}
+                              image={item.images[0].url}
+                              addToCartHandler={addToCartHandler}
+                              id={item._id}
+                              key={item._id}
+                              i={index}
+                              navigate={navigation}
+                        />
+                        );
+                    })
+                    }
+                    
+                </ScrollView>
             </View>
         </View>
         </>
