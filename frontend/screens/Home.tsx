@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { Avatar, Button } from "react-native-paper";
+import Footer from "../components/Footer";
 import { Header } from "../components/Header";
 import { ProductCard } from "../components/ProductCard";
 import SearchModal from "../components/SearchModal";
@@ -109,6 +110,7 @@ setActiveSearch={setActiveSearch} products = {products} />}
                }
               </ScrollView>
             </View>
+            {/* products */}
             <View style={{flex:1}}>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     {
@@ -132,6 +134,9 @@ setActiveSearch={setActiveSearch} products = {products} />}
                 </ScrollView>
             </View>
         </View>
+        {/* Footer */}
+        <Footer activeRoute={"home"}/>
+
         </>
     );
 }

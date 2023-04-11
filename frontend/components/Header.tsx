@@ -3,7 +3,7 @@ import { TouchableOpacity } from "react-native";
 import { colors } from "../styles/styles";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
-export const Header = ({ back,emptyCart }: { back: any,emptyCart:false }) => {
+export const Header = ({ back,emptyCart }: { back: any,emptyCart:boolean }) => {
     const navigation = useNavigation()
     const route = useRoute()
     const emptyCartHandler = ()=>{

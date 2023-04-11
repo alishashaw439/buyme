@@ -16,5 +16,10 @@ export const styles = StyleSheet.create({
         paddingTop: StatusBar.currentHeight,
         flex:1,
         backgroundColor:colors.color2
+    },
+    productDetailsStyle:{
+        paddingTop: StatusBar.currentHeight,
+        flex:1,
+        backgroundColor:colors.color1
     }
 });
