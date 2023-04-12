@@ -1,5 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { Home } from "./screens/Home";
 import ProductDetails from "./screens/ProductDetails";
 
@@ -19,6 +20,7 @@ export const Routes = () => {
                     <Stack.Screen name="productdetails" component={ProductDetails}/>
                 </Stack.Group>
             </Stack.Navigator>
+            <Toast position="bottom" bottomOffset={20}/>
        </NavigationContainer>
     );
 }
