@@ -4,8 +4,10 @@ import { colors, styles } from '../styles/styles'
 import { Header } from '../components/Header'
 import { Button } from 'react-native-paper'
 import CartItem from '../components/CartItem'
+import { useNavigation } from '@react-navigation/native'
+import { Heading } from '../components/Heading'
 
-const cartItems = [
+export const cartItems = [
     {
         name: "Minion",
         image: "https://www.pngmart.com/files/12/Bob-Minion-Transparent-PNG.png",
@@ -33,14 +35,20 @@ const decrementHandler = (id:number,qty:number)=>{
 }
 
 export const Cart = () => {
-    
+    const navigation = useNavigation();
     return (
         <View style={{
             ...styles.defaultStyle,
             padding: 0
         }}>
             <Header emptyCart={true} back={true} />
-            <Heading />
+            <View style={{
+            paddingTop: 100,
+            marginLeft: 35
+        }}>
+            <Heading text1="Shopping" text2="Cart"/>
+            </View>
+          
             <View style={{
                 paddingVertical: 20,
                 flex: 1,
@@ -74,7 +82,7 @@ export const Cart = () => {
                 <Text>5 items</Text>
                 <Text>₹500</Text>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=> cartItems.length > 0 ? navigation.navigate("confirmorder") : null}>
                 <Button
                     style={{
                         backgroundColor: colors.color3,
@@ -88,18 +96,6 @@ export const Cart = () => {
             </TouchableOpacity>
         </View>
     )
-}
-
-const Heading = () => {
-    return (
-        <View style={{
-            paddingTop: 100,
-            marginLeft: 35
-        }}>
-            <Text style={{ fontSize: 25 }}>Shopping</Text>
-            <Text style={{ fontSize: 25, fontWeight: "900" }}>Cart</Text>
-        </View>
-    );
 }
 
 export default Cart

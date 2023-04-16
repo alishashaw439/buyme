@@ -4,6 +4,7 @@ import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-na
 import { Avatar, Button } from "react-native-paper";
 import Footer from "../components/Footer";
 import { Header } from "../components/Header";
+import { Heading } from "../components/Heading";
 import { ProductCard } from "../components/ProductCard";
 import SearchModal from "../components/SearchModal";
 import { colors, styles } from "../styles/styles";
@@ -67,10 +68,7 @@ setActiveSearch={setActiveSearch} products = {products} />}
                 flexDirection: "row",
                 alignItems: "center"
             }}>
-                <View>
-                    <Text style={{ fontSize: 25 }}>Our</Text>
-                    <Text style={{ fontSize: 25, fontWeight: "900" }}>Products</Text>
-                </View>
+               <Heading text1="Our" text2="Products"/>
                 {/* Search */}
                 <View style={{shadowColor: '#000',
                 shadowOffset: { width: 0, height: 1 },
