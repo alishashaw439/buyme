@@ -46,7 +46,7 @@ const ProductDetails = ({route}:{route:any}) => {
         text1:"Added to Cart",
     })
 
-    console.log("adding to cart",quantity)
+    
   }
 
   return (

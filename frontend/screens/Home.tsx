@@ -50,7 +50,7 @@ export const Home = () => {
        setCategory(id)
    }
    const addToCartHandler =(id:string)=>{
-    console.log("add to cart")
+     navigation.navigate("cart")
    }
    console.log(category)
     return (
