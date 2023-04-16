@@ -25,7 +25,7 @@ export const Header = ({ back,emptyCart }: { back: any,emptyCart:boolean }) => {
             )}
             <TouchableOpacity
                 style={{ position: "absolute", right: 20, top: 40, zIndex: 10 }}
-                onPress={emptyCart ? emptyCartHandler : () =>  console.log("move to cart")}
+                onPress={emptyCart ? emptyCartHandler : () =>  navigation.navigate("cart")}
             >
                 <Avatar.Icon
                     style={{ backgroundColor: colors.color4 }}
