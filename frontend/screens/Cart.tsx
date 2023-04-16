@@ -3,6 +3,7 @@ import React from 'react'
 import { colors, styles } from '../styles/styles'
 import { Header } from '../components/Header'
 import { Button } from 'react-native-paper'
+import CartItem from '../components/CartItem'
 
 const cartItems = [
     {
@@ -23,7 +24,16 @@ const cartItems = [
     }
 ]
 
-const Cart = () => {
+const incrementHandler = (id:number,qty:number,stock:number)=>{
+    console.log("increasing",id,qty,stock)
+  
+}
+const decrementHandler = (id:number,qty:number)=>{
+    console.log("decreasing",id,qty)
+}
+
+export const Cart = () => {
+    
     return (
         <View style={{
             ...styles.defaultStyle,
@@ -35,11 +45,22 @@ const Cart = () => {
                 paddingVertical: 20,
                 flex: 1,
             }}>
-                <ScrollView>
+                <ScrollView showsVerticalScrollIndicator={false}>
                     {
                         cartItems.map((i, index) => {
                             return (
-                                <View></View>
+                                <CartItem
+                                key={i.product}
+                                id={i.product}
+                                name={i.name}
+                                stock={i.stock}
+                                amount={i.price}
+                                image={i.image}
+                                index={index}
+                                qty={i.quantity}
+                                incrementHandler={incrementHandler}
+                                decrementHandler={decrementHandler}
+                                ></CartItem>
                             );
                         })
                     }
