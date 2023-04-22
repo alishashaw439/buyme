@@ -7,15 +7,15 @@ import { Button, RadioButton } from 'react-native-paper'
 
 const Payment = ({navigation,route}:{navigation:any,route:any}) => {
  const [paymentMethod,setPaymentMethod] = useState("COD")
- const isAuthenticated = true
+ const isAuthenticated = false
  const redirectToLogin = ()=>{
-   
+   navigation.navigate("login")
  }
  const codHandler = ()=>{
-    
+    console.log("cod")
  }
  const onlineHandler = ()=>{
-    
+    console.log("on")
  }
   return (
     <View style={styles.defaultStyle}>
@@ -44,7 +44,8 @@ const Payment = ({navigation,route}:{navigation:any,route:any}) => {
      </View>
      <TouchableOpacity
      onPress={()=>{
-        !isAuthenticated ? redirectToLogin : paymentMethod === "COD" ? codHandler:onlineHandler
+        console.log("preesed")
+         !isAuthenticated ? redirectToLogin() : paymentMethod === "COD" ? codHandler() : onlineHandler()
      }}
      >
         <Button
@@ -77,7 +78,7 @@ const paymentStyle = StyleSheet.create({
      },
      radioStyleText:{
         fontWeight:"600",
-        fontSize:10,
+        fontSize:20,
         textTransform:"uppercase",
         color:colors.color2
      },
