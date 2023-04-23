@@ -5,11 +5,12 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { Button, TextInput } from 'react-native-paper'
 import Footer from '../components/Footer'
 
-const Login = ({ navigation }: { navigation: any }) => {
+export const ForgotPassword = ({ navigation }: { navigation: any }) => {
     const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
     const submitHandler = () => {
-        Alert.alert("submitted")
+        Alert.alert("send OTP")
+        //TODO
+        navigation.navigate("verify")
     }
     const loading = false
     return (
@@ -17,7 +18,7 @@ const Login = ({ navigation }: { navigation: any }) => {
         <View style={{...styles.defaultStyle,backgroundColor:colors.color2}}>
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={{ marginBottom: 20 }}>
-                    <Text style={styles.heading}>Login</Text>
+                    <Text style={styles.heading}>Forgot Password</Text>
                 </View>
                 <View style={styles.container}>
                     <TextInput style={styles.inputStyling}
@@ -28,29 +29,18 @@ const Login = ({ navigation }: { navigation: any }) => {
                         value={email}
                         onChangeText={setEmail}
                     ></TextInput>
-                    <TextInput style={styles.inputStyling}
-                        mode={"outlined"}
-                        activeOutlineColor={colors.color1}
-                        placeholder="Password"
-                        value={password}
-                        onChangeText={setPassword}
-                        secureTextEntry={true}
-                    ></TextInput>
-                    <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate("forgotpassword")}>
-                        <Text style={styles.forgetText}>Forgot Password</Text>
-                    </TouchableOpacity>
                     <Button 
                      loading={loading}
                         textColor={colors.color2}
-                        disabled={email === "" || password === ""}
+                        disabled={email === ""}
                         onPress={submitHandler}
-                        style={styles.formBtn}>Log In</Button>
+                        style={styles.formBtn}>Send OTP</Button>
                         <Text style={styles.orTextStyle}>OR</Text>
                         <TouchableOpacity
                         activeOpacity={0.8}
-                        onPress={()=> navigation.navigate("signup")}
+                        onPress={()=> navigation.navigate("login")}
                         >
-                            <Text style={styles.link}>Sign Up</Text>
+                            <Text style={styles.link}>Log In</Text>
                         </TouchableOpacity>
                 </View>
                
@@ -60,5 +50,3 @@ const Login = ({ navigation }: { navigation: any }) => {
          </>
     )
 }
-
-export default Login

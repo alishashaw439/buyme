@@ -58,6 +58,7 @@ export const Cart = () => {
                         cartItems.map((i, index) => {
                             return (
                                 <CartItem
+                                navigation={navigation}
                                 key={i.product}
                                 id={i.product}
                                 name={i.name}
