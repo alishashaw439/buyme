@@ -13,9 +13,31 @@ const user = {
 const loading = false
 export const Profile = ({ navigation }: { navigation: any }) => {
     const [avatar, setAvatar] = useState("")
-  
+   const logoutHandler = () => {
+      navigation.navigate("login")
+   }
     const navigateHandler = (text: string) => {
-
+        switch(text){
+            case "Admin":
+                navigation.navigate("adminpanel")
+                break;
+            case "Orders":
+                navigation.navigate("orders")
+                break;
+            case "Profile":
+                navigation.navigate("updateProfile")
+                break;
+            case "Password":
+                navigation.navigate("changePassword")
+                break;
+            case "Sign Out":
+                logoutHandler()
+                break;
+            default:
+            case "Orders":
+                navigation.navigate("orders")
+                break;
+        }
     }
     return (
         <>
@@ -54,11 +76,13 @@ export const Profile = ({ navigation }: { navigation: any }) => {
                     <ButtonBox
                         text={"Orders"}
                         icon={"format-list-bulleted-square"}
+                        handler={navigateHandler}
                     />
                     <ButtonBox
                         reverse={true}
                         icon={"view-dashboard"}
                         text={"Admin"}
+                        handler={navigateHandler}
                     />
                     <ButtonBox
                         text={"Profile"}

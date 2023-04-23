@@ -2,14 +2,17 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Toast } from "react-native-toast-message/lib/src/Toast";
 import Cart from "./screens/Cart";
+import { ChangePassword } from "./screens/ChangePassword";
 import ConfirmOrder from "./screens/ConfirmOrder";
 import { ForgotPassword } from "./screens/ForgotPassword";
 import { Home } from "./screens/Home";
 import Login from "./screens/Login";
+import Orders from "./screens/Orders";
 import Payment from "./screens/Payment";
 import ProductDetails from "./screens/ProductDetails";
 import { Profile } from "./screens/Profile";
 import { SignUp } from "./screens/SignUp";
+import { UpdateProfile } from "./screens/UpdateProfile";
 import { Verify } from "./screens/Verify";
 
 
@@ -35,6 +38,9 @@ export const Routes = () => {
                     <Stack.Screen name="verify" component={Verify}/>
                     <Stack.Screen name="signup" component={SignUp}/>
                     <Stack.Screen name="profile" component={Profile}/>
+                    <Stack.Screen name="updateProfile" component={UpdateProfile}/>
+                    <Stack.Screen name="changePassword" component={ChangePassword}/>
+                    <Stack.Screen name="orders" component={Orders}/>
                 </Stack.Group>
             </Stack.Navigator>
             <Toast position="bottom" bottomOffset={20}/>

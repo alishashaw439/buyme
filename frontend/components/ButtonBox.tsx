@@ -8,7 +8,7 @@ const ButtonBox = ({icon,text,handler,reverse=false,loading=false}:{
     reverse:boolean,loading:boolean
 }) => {
   return (
-    <TouchableOpacity style={{
+    <TouchableOpacity activeOpacity={0.8} style={{
         backgroundColor:reverse?colors.color1:colors.color3,
         height:80,
         width:80,
