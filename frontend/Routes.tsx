@@ -8,6 +8,7 @@ import { Home } from "./screens/Home";
 import Login from "./screens/Login";
 import Payment from "./screens/Payment";
 import ProductDetails from "./screens/ProductDetails";
+import { Profile } from "./screens/Profile";
 import { SignUp } from "./screens/SignUp";
 import { Verify } from "./screens/Verify";
 
@@ -33,6 +34,7 @@ export const Routes = () => {
                     <Stack.Screen name="forgotpassword" component={ForgotPassword}/>
                     <Stack.Screen name="verify" component={Verify}/>
                     <Stack.Screen name="signup" component={SignUp}/>
+                    <Stack.Screen name="profile" component={Profile}/>
                 </Stack.Group>
             </Stack.Navigator>
             <Toast position="bottom" bottomOffset={20}/>
