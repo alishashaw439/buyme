@@ -1,7 +1,7 @@
 import { StyleSheet, Platform, StatusBar } from "react-native";
 export const colors = {
 color1: "#c70049",
-colorlight: "rgba(227,25,99)",
+colorlight: "rgba(227,25,99,1)",
 colorlight2: "rgba(199,0,73,0.8)",
 color2: "white",
 color3: "rgb(45,45,45)",

@@ -1,5 +1,6 @@
 import { ScrollView, Text, View } from "react-native"
 import ButtonBox from "../../components/ButtonBox"
+import Chart from "../../components/Chart"
 import { Header } from "../../components/Header"
 import Loader from "../../components/Loader"
 import { ProductListHeading } from "../../components/ProductListHeading"
@@ -29,8 +30,11 @@ export const AdminPanel = ({navigation}:{navigation:any}) => {
                          style={{backgroundColor:colors.color3,
                          borderRadius:20,
                          alignItems:"center"}}>
-
+                        
                          </View>
+
+                       <Chart inStock={12} outOfStock={2}/>
+
                          <View >
                             <View style={{
                                 flexDirection:"row",
