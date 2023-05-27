@@ -19,7 +19,7 @@ export const Profile = ({ navigation }: { navigation: any }) => {
     const navigateHandler = (text: string) => {
         switch(text){
             case "Admin":
-                navigation.navigate("adminpanel")
+                navigation.navigate("adminpanel",{navigation})
                 break;
             case "Orders":
                 navigation.navigate("orders")

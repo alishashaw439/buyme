@@ -14,12 +14,13 @@ const categories = [{category:"clothes",_id:"234"},
 {category:"accessories",_id:"543"},
 {category:"furniture",_id:"342"}
 ]
-const products  = [
+export const products  = [
     {
         price:20,
         name:"Sample",
         _id:"241",
         stock:20,
+        category:"7y392",
         images:[
             {
                 url:"https://www.pngmart.com/files/12/Bob-Minion-Transparent-PNG.png"
@@ -32,6 +33,7 @@ const products  = [
         name:"Bello",
         _id:"242",
         stock:20,
+        category:"7e392",
         images:[
             {
                 url:"https://www.pngmart.com/files/12/Stuart-Minion-PNG-Pic.png"
