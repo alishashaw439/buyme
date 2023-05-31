@@ -14,10 +14,14 @@ export const AdminPanel = ({navigation}:{navigation:any}) => {
     switch(text){
         case "Category":
             navigation.navigate("categories")
+            break
         case "All Orders":
             navigation.navigate("adminorders")
+            break
         case "Product":
+            console.log("aayaa")
             navigation.navigate("newproduct")
+            break
         default:
             navigation.navigate("adminorders")
             break;
