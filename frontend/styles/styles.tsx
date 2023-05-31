@@ -73,3 +73,9 @@ export const styles = StyleSheet.create({
         marginHorizontal:20
     }
 });
+
+export const inputOptions={
+    style:styles.inputStyling,
+    mode:"outlined",
+    activeOutlineColor:colors.color1
+}

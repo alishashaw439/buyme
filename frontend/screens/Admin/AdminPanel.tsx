@@ -10,8 +10,18 @@ import { products } from "../Home"
 
 export const AdminPanel = ({navigation}:{navigation:any}) => {
     const loading = false
-    const navigationHandler = () =>{
-        console.log("naviagting from product")
+    const navigationHandler = (text:string) =>{
+    switch(text){
+        case "Category":
+            navigation.navigate("categories")
+        case "All Orders":
+            navigation.navigate("adminorders")
+        case "Product":
+            navigation.navigate("newproduct")
+        default:
+            navigation.navigate("adminorders")
+            break;
+    }
     }
      const deleteProductHandler = (id:any)=>{
         console.log("Deleting id",id)
@@ -32,8 +42,10 @@ export const AdminPanel = ({navigation}:{navigation:any}) => {
                          alignItems:"center"}}>
                         
                          </View>
-
-                       <Chart inStock={12} outOfStock={2}/>
+                        
+                        <Chart inStock={12} outOfStock={2}/>
+                    
+                 
 
                          <View >
                             <View style={{
@@ -42,18 +54,18 @@ export const AdminPanel = ({navigation}:{navigation:any}) => {
                                 justifyContent:"space-between"
                             }}>
                                 <ButtonBox icon={"plus"}
-                                text={"product"}
+                                text={"Product"}
                                 handler={navigationHandler}
                                 >
                                 </ButtonBox>
                                 <ButtonBox icon={"format-list-bulleted-square"}
-                                text={"All orders"}
+                                text={"All Orders"}
                                 handler={navigationHandler}
                                 reverse={true}
                                 >
                                 </ButtonBox>
                                 <ButtonBox icon={"plus"}
-                                text={"category"}
+                                text={"Category"}
                                 handler={navigationHandler}
                                 >
                                 </ButtonBox>

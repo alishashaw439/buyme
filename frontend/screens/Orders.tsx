@@ -6,49 +6,49 @@ import Loader from '../components/Loader'
 import { Headline } from 'react-native-paper'
 import OrderItem from '../components/OrderItem'
 
+export const orders = [
+    {
+        id: "234",
+        shippingInfo: {
+            address: "amazon fullfilment",
+            city: "Kolkata",
+            country: "India",
+            pincode: 700034
+        },
+        createdAt: "12-2-2022T743",
+        orderStatus: "Processing",
+        paymentMethod: "COD",
+        totalAmount: 300
+    },
+    {
+        id: "134",
+        shippingInfo: {
+            address: "amazon fullfilment",
+            city: "Rishikesh",
+            country: "India",
+            pincode: 700034
+        },
+        createdAt: "12-2-2022T873",
+        orderStatus: "Processing",
+        paymentMethod: "COD",
+        totalAmount: 300
+    },
+    {
+        id: "104",
+        shippingInfo: {
+            address: "amazon fullfilment",
+            city: "Vrindavan",
+            country: "India",
+            pincode: 700034
+        },
+        createdAt: "12-2-2022T873",
+        orderStatus: "Processing",
+        paymentMethod: "COD",
+        totalAmount: 300
+    }
+]
 const Orders = () => {
     const loading = false
-    const orders = [
-        {
-            id: "234",
-            shippingInfo: {
-                address: "amazon fullfilment",
-                city: "Kolkata",
-                country: "India",
-                pincode: 700034
-            },
-            createdAt: "12-2-2022T743",
-            orderStatus: "Processing",
-            paymentMethod: "COD",
-            totalAmount: 300
-        },
-        {
-            id: "134",
-            shippingInfo: {
-                address: "amazon fullfilment",
-                city: "Rishikesh",
-                country: "India",
-                pincode: 700034
-            },
-            createdAt: "12-2-2022T873",
-            orderStatus: "Processing",
-            paymentMethod: "COD",
-            totalAmount: 300
-        },
-        {
-            id: "104",
-            shippingInfo: {
-                address: "amazon fullfilment",
-                city: "Vrindavan",
-                country: "India",
-                pincode: 700034
-            },
-            createdAt: "12-2-2022T873",
-            orderStatus: "Processing",
-            paymentMethod: "COD",
-            totalAmount: 300
-        }
-    ]
     return (
         <View style={{
             ...styles.defaultStyle,

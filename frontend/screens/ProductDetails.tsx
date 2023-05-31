@@ -2,9 +2,9 @@ import { View, Text, Dimensions, StyleSheet, Image, TouchableOpacity } from 'rea
 import React, { useRef, useState } from 'react'
 import { colors, styles } from '../styles/styles'
 import { Header } from '../components/Header'
-import { Carousel } from 'react-native-snap-carousel'
 import { Avatar, Button } from 'react-native-paper'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
+import Carousel from 'react-native-snap-carousel'
 
 const SLIDER_WIDTH = Dimensions.get("window").width
 const horizontalMargin = 20;
@@ -15,11 +15,11 @@ const stock = 5
 const description = "Minions are an all-male species of fictional yellow creatures that appear in Illumination's Despicable Me franchise. They are characterized by their childlike behavior and their language, which is largely unintelligible."
 const images = [
     {
-        id:"241",
+        _id:"241",
         url:"https://www.pngmart.com/files/12/Bob-Minion-Transparent-PNG.png"
     },
     {
-        id:"242",
+        _id:"242",
         url:"https://www.pngmart.com/files/12/Stuart-Minion-PNG-Pic.png"
     }
 ]
@@ -52,7 +52,7 @@ const ProductDetails = ({route}:{route:any}) => {
   return (
     <View style={styles.productDetailsStyle}>
       <Header back={true} emptyCart={false}/>
-      <Carousel
+      {/* <Carousel
       vertical={false}
       layout="stack"
       sliderWidth={SLIDER_WIDTH}
@@ -60,7 +60,7 @@ const ProductDetails = ({route}:{route:any}) => {
       ref = {carouselRef}
       data={images}
       renderItem={CarouselCardItem}
-      />
+      /> */}
       <View style={{
         backgroundColor:colors.color2,
         padding:35,

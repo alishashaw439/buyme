@@ -1,8 +1,6 @@
 import React from 'react';
-import {
-  SafeAreaView,
-} from 'react-native';
 import { Routes } from './Routes';
+
 
 function App() {
   return (
