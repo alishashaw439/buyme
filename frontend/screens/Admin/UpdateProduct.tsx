@@ -20,6 +20,16 @@ const UpdateProduct = ({ navigation, route }: { navigation: any, route: any }) =
         { _id:"4468",category:"Appliances"},
         { _id:"8568",category:"Clothes"},
     ])
+    const images = [
+        {
+            _id:"ugsugd",
+            url:"https://www.pngmart.com/files/12/Bob-Minion-Transparent-PNG.png",
+        },
+        {
+            _id:"jsadcfs",
+            url:"https://www.pngmart.com/files/12/Stuart-Minion-PNG-Pic.png",
+        }
+    ]
     const [visible,setVisible] = useState(false)
 
     const submitHandler = ()=>{
@@ -51,7 +61,7 @@ const UpdateProduct = ({ navigation, route }: { navigation: any, route: any }) =
                             <Button
                                 onPress={() => navigation.navigate("productimages", {
                                     id,
-                                    images: [],
+                                    images: images
 
                                 })}
                                 textColor={colors.color1}>Manage Images</Button>
