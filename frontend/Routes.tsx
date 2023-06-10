@@ -7,6 +7,7 @@ import Categories from "./screens/Admin/Categories";
 import NewProduct from "./screens/Admin/NewProduct";
 import ProductImages from "./screens/Admin/ProductImages";
 import UpdateProduct from "./screens/Admin/UpdateProduct";
+import { CameraComponent } from "./screens/Camera";
 import Cart from "./screens/Cart";
 import { ChangePassword } from "./screens/ChangePassword";
 import ConfirmOrder from "./screens/ConfirmOrder";
@@ -53,6 +54,7 @@ export const Routes = () => {
                     <Stack.Screen name="updateproduct" component={UpdateProduct}/>
                     <Stack.Screen name="newproduct" component={NewProduct}/>
                     <Stack.Screen name="productimages" component={ProductImages}/>
+                    <Stack.Screen name="camera" component={CameraComponent}/>
                 </Stack.Group>
             </Stack.Navigator>
             <Toast position="bottom" bottomOffset={20}/>

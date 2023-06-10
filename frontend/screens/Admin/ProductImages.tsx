@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { colors, styles } from '../../styles/styles'
 import { Header } from '../../components/Header'
 import ImageCard from '../../components/ImageCard'
@@ -12,8 +12,14 @@ const ProductImages = ({navigation,route}:{navigation:any,route:any}) => {
   const [imageChange,setImageChange] = useState(false)
   const loading = false
   console.log("eeee",images)
+  useEffect(()=>{
+    if(route.params.images){
+        setImage(route.params.images[0].uri)
+        setImageChange(true)
+    }
+},[route.params])
   const submitHandler=()=>{
-
+ console.log("presss")
   }
   const deleteProductHandler=(id:any)=>{
     console.log("image id",id)
@@ -85,7 +91,7 @@ const ProductImages = ({navigation,route}:{navigation:any,route:any}) => {
             textColor={colors.color2}
             loading={loading}
             onPress={submitHandler}
-            disabled={!imageChange}
+            disabled={imageChange}
             >Add</Button>
           </View>
     </View>

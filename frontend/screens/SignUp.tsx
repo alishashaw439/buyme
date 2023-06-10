@@ -1,13 +1,13 @@
 import { View, Text, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { colors, styles } from '../styles/styles'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Avatar, Button, TextInput } from 'react-native-paper'
 import Footer from '../components/Footer'
 
 
-export const SignUp = ({ navigation }: { navigation: any }) => {
-    const [avatar, setAvatar] = useState("")
+export const SignUp = ({ navigation,route }: { navigation: any,route:any }) => {
+    const [avatar, setAvatar] = useState("../assets/defaultImg.png")
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -23,6 +23,13 @@ export const SignUp = ({ navigation }: { navigation: any }) => {
         //TODO
     }
     const loading = false
+    useEffect(()=>{
+        if(route.params){
+            if(route.params.images){
+                setAvatar(route.params.images[0].uri)
+            }
+        }
+    },[route.params])
     return (
 <>
         <View style={{...styles.defaultStyle,backgroundColor:colors.color2}}>
@@ -42,9 +49,11 @@ export const SignUp = ({ navigation }: { navigation: any }) => {
                     backgroundColor:colors.color1,
                 }}
                 size={80}
-                source={require('../assets/defaultImg.png')}
+                source={{
+                    uri:avatar
+                }}
                     />
-                    <TouchableOpacity onPress={()=>navigation.navigate("camera")}>
+                    <TouchableOpacity onPress={()=>navigation.navigate("camera",{signup:true})}>
                         <Button textColor={colors.color2}>Change Photo</Button>
                     </TouchableOpacity>
                     <TextInput style={styles.inputStyling}

@@ -24,7 +24,7 @@ export const AdminPanel = ({navigation}:{navigation:any}) => {
             break
         default:
             navigation.navigate("adminorders")
-            break;
+            break
     }
     }
      const deleteProductHandler = (id:any)=>{
@@ -48,9 +48,6 @@ export const AdminPanel = ({navigation}:{navigation:any}) => {
                          </View>
                         
                         <Chart inStock={12} outOfStock={2}/>
-                    
-                 
-
                          <View >
                             <View style={{
                                 flexDirection:"row",
@@ -81,16 +78,15 @@ export const AdminPanel = ({navigation}:{navigation:any}) => {
                                 {
                                     products.map((item:any,index:any)=>(
                                         <ProductListItem 
-                                        id={item._id}
-                                        key={item._id} 
-                                        i={index}
-                                        deleteHandler={deleteProductHandler}
-                                        price={item.price}
-                                        stock={item.stock}
-                                        name={item.name}
-                                        category={item.category}
-                                        imageSrc={item.images[0].url}
-                                        />
+                                            id={item._id}
+                                            i={index}
+                                            deleteHandler={deleteProductHandler}
+                                            price={item.price}
+                                            stock={item.stock}
+                                            name={item.name}
+                                            category={item.category}
+                                            imageSrc={item.images[0].url} 
+                                            key={item._id}                                        />
                                     ))
                                 }
                             </View>

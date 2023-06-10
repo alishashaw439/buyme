@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { colors, styles } from '../../styles/styles'
 import { Header } from '../../components/Header'
 import Loader from '../../components/Loader'
@@ -20,7 +20,11 @@ const NewProduct = ({ navigation, route }: { navigation: any, route: any }) => {
         { _id:"8568",category:"Clothes"},
     ])
     const [visible,setVisible] = useState(false)
-
+    useEffect(()=>{
+        if(route.params.images){
+            setImage(route.params.images[0].uri)
+        }
+    },[route.params])
     const submitHandler = ()=>{
         console.log(name,description,price,stock,categoryID)
     }

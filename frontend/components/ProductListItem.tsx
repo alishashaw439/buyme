@@ -6,8 +6,8 @@ import MyModal from './MyModal'
 
 const ProductListItem = ({
   id,
-  key,
   i,
+  key,
   deleteHandler,
   price,
   stock,
@@ -15,7 +15,7 @@ const ProductListItem = ({
   category,
   imageSrc}:{
   id: any,
-  key: any,
+  key:any,
   i: number
   deleteHandler: (id:any) => void,
   price: number,
