@@ -1,0 +1,13 @@
+diff --git a/node_modules/react-native-snap-carousel/index.js b/node_modules/react-native-snap-carousel/index.js
+index f116932..c2a2460 100644
+--- a/node_modules/react-native-snap-carousel/index.js
++++ b/node_modules/react-native-snap-carousel/index.js
+@@ -1,6 +1,6 @@
+-import React, { Component, PropTypes } from 'react';
++import React, { Component } from 'react';
+ import { ScrollView, Animated, Platform, Easing } from 'react-native';
+-
++import PropTypes from 'prop-types'; 
+ export default class Carousel extends Component {
+ 
+     static propTypes = {

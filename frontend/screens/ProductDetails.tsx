@@ -52,7 +52,7 @@ const ProductDetails = ({route}:{route:any}) => {
   return (
     <View style={styles.productDetailsStyle}>
       <Header back={true} emptyCart={false}/>
-      {/* <Carousel
+      <Carousel
       vertical={false}
       layout="stack"
       sliderWidth={SLIDER_WIDTH}
@@ -60,7 +60,7 @@ const ProductDetails = ({route}:{route:any}) => {
       ref = {carouselRef}
       data={images}
       renderItem={CarouselCardItem}
-      /> */}
+      />
       <View style={{
         backgroundColor:colors.color2,
         padding:35,
