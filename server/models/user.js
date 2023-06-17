@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 import validator from "validator";
+import bcrypt from "bcrypt";
+
 const schema = new mongoose.Schema({
     name:{
         type:String,
@@ -45,5 +47,13 @@ const schema = new mongoose.Schema({
     otp:Number,
     otp_expire: Date
 });
+
+schema.pre("save",async function(){
+this.password = await bcrypt.hash(this.password,10)
+})
+
+schema.methods.comparePassword = async function(enteredPassword){
+   return await bcrypt.compare(enteredPassword,this.password)
+}
 
 export const User = mongoose.model("User",schema)
