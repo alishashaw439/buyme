@@ -7,12 +7,14 @@ export const login = asyncError(async (req, res, next) => {
     const user = await User.findOne({email}).select("+password")
     const isMatched = await user.comparePassword(password)
     if(isMatched){
+        const token = user.generateToken()
         return res.status(200).json({
             success:true,
-            message:`Welcome ${user.name}`
+            message:`Welcome ${user.name}`,
+            token
         })
     }else{
-        return next(new ErrorHandler("Incorrect Password",400))
+        return next(new ErrorHandler("Invalid credentials",400))
     }
 })
 
