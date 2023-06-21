@@ -1,6 +1,8 @@
+import { asyncError } from "../middlewares/error.js";
 import {User} from "../models/user.js"
+import { ErrorHandler } from "../utils/errorHandler.js"
 
-export const login = async (req, res, next) => {
+export const login = asyncError(async (req, res, next) => {
     const {email,password} = req.body
     const user = await User.findOne({email}).select("+password")
     const isMatched = await user.comparePassword(password)
@@ -10,14 +12,11 @@ export const login = async (req, res, next) => {
             message:`Welcome ${user.name}`
         })
     }else{
-        return res.status(400).json({
-            success:false,
-            message:"Incorrect Password"
-        })
+        return next(new ErrorHandler("Incorrect Password",400))
     }
-}
+})
 
-export const signup = async(req, res, next) => {
+export const signup = asyncError(async(req, res, next) => {
     const {name,email,password,address,city,country,pincode} = req.body;
     
     await User.create({name,email,password,address,city,country,pincode})
@@ -25,4 +24,4 @@ export const signup = async(req, res, next) => {
         success:true,
         message:"Registered successfully"
     })
-}
+})
