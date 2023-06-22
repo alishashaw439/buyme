@@ -49,7 +49,10 @@ const schema = new mongoose.Schema({
     otp_expire: Date
 });
 
-schema.pre("save",async function(){
+schema.pre("save",{ document: true, query: false },async function(next){
+if(!this.isModified("password")) {
+    return next()
+}
 this.password = await bcrypt.hash(this.password,10)
 })
 
