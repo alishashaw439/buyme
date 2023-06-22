@@ -23,3 +23,7 @@ export const signup = asyncError(async(req, res, next) => {
    user = await User.create({name,email,password,address,city,country,pincode})
     sendToken(user,res,"Registered successfully",201)
 })
+
+export const getMyProfile= async (req,res,next) =>{
+    res.send("working")
+}
