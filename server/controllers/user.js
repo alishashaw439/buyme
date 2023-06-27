@@ -116,3 +116,28 @@ export const updatePic = asyncError(async (req,res,next) =>{
         message:"avatar updated successfully"
     })
 })
+
+export const forgetPassword = asyncError(async (req,res,next) =>{
+    const {email} = req.body
+    const user = await User.findOne({email})
+    if(!user) return next(new ErrorHandler("Incorrect email",400))
+    const randomNumber = Math.random()*(999999 - 100000) + 100000
+    const otp = Math.floor(randomNumber)
+    const otpExpire = 15*60*1000
+    user.otp = otp
+    user.otp_expire = new Date(Date.now() + otpExpire)
+    await user.save()
+
+    res.status(200).json({
+        success:true,
+        message: `Email sent to ${user.email}`
+    })
+})
+
+export const resetPassword = asyncError(async (req,res,next) =>{
+    const user = await User.findById(req.user._id)
+    res.status(200).json({
+        success:true,
+        user
+    })
+})
