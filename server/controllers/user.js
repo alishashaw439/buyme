@@ -1,7 +1,7 @@
 import { asyncError } from "../middlewares/error.js";
 import {User} from "../models/user.js"
 import { ErrorHandler } from "../utils/errorHandler.js"
-import { cookieOptions, getDataUri, sendToken } from "../utils/utils.js";
+import { cookieOptions, getDataUri, sendEmail, sendToken } from "../utils/utils.js";
 import cloudinary from "cloudinary"
 
 export const login = asyncError(async (req, res, next) => {
@@ -105,7 +105,6 @@ export const updatePic = asyncError(async (req,res,next) =>{
     const file = getDataUri(req.file)
     await cloudinary.v2.uploader.destroy(user.avatar.public_id)
     const myCloud =  await cloudinary.v2.uploader.upload(file.content)
-    console.log(myCloud.secure_url)
     user.avatar={
         public_id : myCloud.public_id,
         url: myCloud.secure_url
@@ -127,7 +126,16 @@ export const forgetPassword = asyncError(async (req,res,next) =>{
     user.otp = otp
     user.otp_expire = new Date(Date.now() + otpExpire)
     await user.save()
-
+    const message = `Your otp for reseting password is ${otp}.\nPlease ignore if you haven't requested this.`
+    try{
+        await sendEmail("OTP for reseting password from buyme",user.email,message)
+    }catch(error){
+        user.otp = null
+        user.otp_expire = null
+        await user.save()
+        return next(error)
+    }
+    
     res.status(200).json({
         success:true,
         message: `Email sent to ${user.email}`
@@ -135,9 +143,22 @@ export const forgetPassword = asyncError(async (req,res,next) =>{
 })
 
 export const resetPassword = asyncError(async (req,res,next) =>{
-    const user = await User.findById(req.user._id)
+    const {otp,password} = req.body
+
+    const user = await User.findOne({
+        otp,
+        otp_expire:{
+            $gt:Date.now()
+        }
+    })
+    if(!user) return next(new ErrorHandler("Incorrect otp or has been expired",400))
+    if(!password) return next(new ErrorHandler("Please enter new password",400))
+    user.password = password
+    user.otp = undefined
+    user.otp_expire = undefined
+    await user.save()
     res.status(200).json({
         success:true,
-        user
+        message:"Password changed successfully."
     })
 })
