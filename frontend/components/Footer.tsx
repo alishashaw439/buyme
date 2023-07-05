@@ -7,7 +7,7 @@ import { Avatar } from 'react-native-paper'
 const Footer = ({ activeRoute = "home" }) => {
     const navigation = useNavigation()
     const loading = false
-    const isAuthenticated = false
+    const isAuthenticated = true
     const navigationHandler = (key:number) => {
         switch(key){
             case 0:
