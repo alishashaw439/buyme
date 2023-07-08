@@ -2,6 +2,20 @@ import {asyncError} from "../middlewares/error.js";
 import {Order} from '../models/order.js';
 import {Product} from '../models/product.js';
 import { ErrorHandler } from "../utils/errorHandler.js";
+import {stripe} from "../server.js"
+
+export const processPayment = asyncError(async(req,res,next)=>{
+    const {totalAmount} = req.body
+    const {client_secret} = await stripe.paymentIntents.create({
+        //converting the money INR into paise ~ lowest form
+        amount: Number(totalAmount * 100),
+        currency: "inr"
+    })
+    res.status(200).json({
+        success:true,
+        client_secret
+    })
+})
 
 export const createOrder = asyncError(async(req,res,next)=>{
         const {shippingInfo,orderItems,paymentMethod,paymentInfo,itemsPrice,taxPrice,shippingCharges,totalAmount} = req.body
