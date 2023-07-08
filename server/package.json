@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "NODE_ENV=Development nodemon server.js",
-    "prod": "cd server && node server.js"
+    "start": "cd server && npm i && node server.js"
   },
   "author": "",
   "license": "ISC",
