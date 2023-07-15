@@ -21,14 +21,10 @@ import { Profile } from "./screens/Profile";
 import { SignUp } from "./screens/SignUp";
 import { UpdateProfile } from "./screens/UpdateProfile";
 import { Verify } from "./screens/Verify";
-import { Provider } from "react-redux"
-import { store } from './redux/store';
-
 
 const Stack = createNativeStackNavigator()
 export const Routes = () => {
     return (
-        <Provider store={store}>
        <NavigationContainer>
             <Stack.Navigator
              initialRouteName="home"
@@ -61,6 +57,5 @@ export const Routes = () => {
             </Stack.Navigator>
             <Toast position="bottom" bottomOffset={20}/>
        </NavigationContainer>
-       </Provider>
     );
 }

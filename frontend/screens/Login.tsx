@@ -1,20 +1,19 @@
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { colors, styles } from '../styles/styles'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Button, TextInput } from 'react-native-paper'
 import Footer from '../components/Footer'
-import {useDispatch, useSelector} from "react-redux"
+import {useDispatch} from "react-redux"
 import { login } from '../redux/actions/userAction'
+import { useMessageAndErrorUser } from '../utils/hooks'
 
 const Login = ({ navigation }: { navigation: any }) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const dispatch = useDispatch()
-    const {loading,message,error,isAuthenticated} = useSelector((state)=> state.user)
-    console.log("glue",message,loading,isAuthenticated,error)
+    const loading = useMessageAndErrorUser(navigation,dispatch,"profile")
     const submitHandler = () => {
-        Alert.alert("submitted")
         dispatch(login(email,password))
     }
 
@@ -31,6 +30,8 @@ const Login = ({ navigation }: { navigation: any }) => {
                         activeOutlineColor={colors.color1}
                         placeholder="Email"
                         keyboardType="email-address"
+                        autoCapitalize='none'
+                        autoCorrect={false}
                         value={email}
                         onChangeText={setEmail}
                     ></TextInput>
@@ -38,6 +39,8 @@ const Login = ({ navigation }: { navigation: any }) => {
                         mode={"outlined"}
                         activeOutlineColor={colors.color1}
                         placeholder="Password"
+                        autoCapitalize='none'
+                        autoCorrect={false}
                         value={password}
                         onChangeText={setPassword}
                         secureTextEntry={true}

@@ -30,3 +30,28 @@ export const login = (email,password) => async(dispatch:any)=>{
         })
     }
 }
+
+export const loadUser = () => async(dispatch:any)=>{
+    try{
+        dispatch({
+            type:"loadUserRequest"
+        })
+        const {data} = await axios.get(`${server}/user/profile`,{
+            withCredentials:true
+        })
+       console.log(data)
+        dispatch({
+            type:"loadUserSuccess",
+            payload:data.user
+        })
+    }catch(error){
+        if (error.response) {
+            console.log(error.response.status);
+            console.log(error.response.data);
+          }
+        dispatch({
+            type:"loadUserFail",
+            payload: error.response.data.message
+        })
+    }
+}
