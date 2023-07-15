@@ -12,8 +12,11 @@
   "dependencies": {
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
+    "@reduxjs/toolkit": "^1.9.5",
     "@types/react-native-snap-carousel": "^3.8.5",
+    "axios": "^1.4.0",
     "expo-modules-core": "^1.2.7",
+    "mime": "^3.0.0",
     "react": "18.2.0",
     "react-native": "0.71.6",
     "react-native-chart-kit": "^6.12.0",
@@ -26,7 +29,8 @@
     "react-native-svg": "^13.9.0",
     "react-native-toast-message": "^2.1.6",
     "react-native-vector-icons": "^9.2.0",
-    "react-native-vision-camera": "^2.15.4"
+    "react-native-vision-camera": "^2.15.4",
+    "react-redux": "^8.1.1"
   },
   "reactNativePermissionsIOS": [
     "Camera",
