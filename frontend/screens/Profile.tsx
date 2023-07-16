@@ -5,16 +5,21 @@ import { Avatar, Button } from 'react-native-paper'
 import ButtonBox from '../components/ButtonBox'
 import Footer from '../components/Footer'
 import Loader from '../components/Loader'
+import { useDispatch } from 'react-redux'
+import { useMessageAndErrorUser } from '../utils/hooks'
+import { logout } from '../redux/actions/userAction'
 
 const user = {
     name: "Alisha",
     email: "test@gmail.com"
 }
-const loading = false
+
 export const Profile = ({ navigation,route }: { navigation: any,route:any }) => {
     const [avatar, setAvatar] = useState("")
+    const dispatch = useDispatch()
+    const loading = useMessageAndErrorUser(navigation,dispatch,"login")
     const logoutHandler = () => {
-      navigation.navigate("login")
+      dispatch(logout())
    }
     const navigateHandler = (text: string) => {
         switch(text){
