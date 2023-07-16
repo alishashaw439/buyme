@@ -2,13 +2,17 @@ import {createReducer} from "@reduxjs/toolkit"
 
 
 export const userReducer = createReducer({loading:false},(builder)=>{
+
     builder.addCase("loginRequest",(state)=>{
         state.loading = true
     }).addCase("loadUserRequest",(state)=>{
         state.loading = true
     }).addCase("logoutRequest",(state)=>{
         state.loading = true
+    }).addCase("registerRequest",(state)=>{
+        state.loading = true
     })
+
     builder.addCase("loginSuccess",(state,action)=>{
         state.loading = false
         state.isAuthenticated = true
@@ -22,7 +26,12 @@ export const userReducer = createReducer({loading:false},(builder)=>{
         state.isAuthenticated = false
         state.message = action.payload
         state.user = null
+    }).addCase("registerSuccess",(state,action)=>{
+        state.loading = false
+        state.isAuthenticated = true
+        state.message = action.payload
     })
+
     builder.addCase("loginFail",(state,action)=>{
         state.loading = false
         state.isAuthenticated = false
@@ -35,7 +44,12 @@ export const userReducer = createReducer({loading:false},(builder)=>{
         state.loading = false
         state.isAuthenticated = true
         state.error = action.payload
+    }).addCase("registerFail",(state,action)=>{
+        state.loading = false
+        state.isAuthenticated = false
+        state.error = action.payload
     })
+
     builder.addCase("clearError",(state,action)=>{
         state.error = null
     })

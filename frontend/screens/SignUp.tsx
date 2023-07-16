@@ -4,10 +4,13 @@ import { colors, styles } from '../styles/styles'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Avatar, Button, TextInput } from 'react-native-paper'
 import Footer from '../components/Footer'
-
+import mime from "mime"
+import { useDispatch } from 'react-redux'
+import { register } from '../redux/actions/userAction'
+import { useMessageAndErrorUser } from '../utils/hooks'
 
 export const SignUp = ({ navigation,route }: { navigation: any,route:any }) => {
-    const [avatar, setAvatar] = useState("../assets/defaultImg.png")
+    const [avatar, setAvatar] = useState("")
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -17,12 +20,28 @@ export const SignUp = ({ navigation,route }: { navigation: any,route:any }) => {
     const [country, setCountry] = useState("")
 
     const disabledbtn = !name || !email || !password || !address || !city || !pincode || !country
-       
+    const dispatch = useDispatch()
+    const loading = useMessageAndErrorUser(navigation,dispatch,"profile")
     const submitHandler = () => {
-        Alert.alert("signed up")
-        //TODO
+       const formData = new FormData()
+       formData.append("name",name)
+       formData.append("email",email)
+       formData.append("password",password)
+       formData.append("address",address)
+       formData.append("city",city)
+       formData.append("pincode",pincode)
+       formData.append("country",country)
+
+       if(avatar !== ""){
+        formData.append("file",{
+            uri:avatar,
+            type:mime.getType(avatar),
+            name:avatar.split("/").pop()
+        })
+       }
+       dispatch(register(formData))
     }
-    const loading = false
+
     useEffect(()=>{
         if(route.params){
             if(route.params.images){
@@ -69,6 +88,8 @@ export const SignUp = ({ navigation,route }: { navigation: any,route:any }) => {
                         activeOutlineColor={colors.color1}
                         placeholder="Email"
                         keyboardType="email-address"
+                        autoCapitalize='none'
+                        autoCorrect={false}
                         value={email}
                         onChangeText={setEmail}
                     ></TextInput>
@@ -77,6 +98,8 @@ export const SignUp = ({ navigation,route }: { navigation: any,route:any }) => {
                         activeOutlineColor={colors.color1}
                         placeholder="Password"
                         value={password}
+                        autoCapitalize='none'
+                        autoCorrect={false}
                         onChangeText={setPassword}
                         secureTextEntry={true}
                     ></TextInput>

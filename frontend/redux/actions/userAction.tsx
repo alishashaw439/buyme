@@ -1,6 +1,34 @@
 import axios from "axios"
 import {server} from "../store.tsx"
 
+export const register = (formData) => async(dispatch:any)=>{
+    try{
+        dispatch({
+            type:"loginRequest"
+        })
+        const {data} = await axios.post(`${server}/user/signup`,formData,{
+            headers:{
+                "Content-type":"multipart/form-data"
+            },
+            withCredentials:true
+        })
+       console.log("sign up",data)
+        dispatch({
+            type:"registerSuccess",
+            payload:data.message
+        })
+    }catch(error){
+        if (error.response) {
+            console.log(error.response.status);
+            console.log(error.response.data);
+          }
+        dispatch({
+            type:"registerFail",
+            payload: error.response.data.message
+        })
+    }
+}
+
 export const login = (email,password) => async(dispatch:any)=>{
     try{
         dispatch({
@@ -12,8 +40,9 @@ export const login = (email,password) => async(dispatch:any)=>{
         },{
             headers:{
                 "Content-type":"application/json"
-            }
-        })
+            },
+            withCredentials:true
+        },)
        console.log(data)
         dispatch({
             type:"loginSuccess",
