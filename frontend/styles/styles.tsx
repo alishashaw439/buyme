@@ -79,3 +79,7 @@ export const inputOptions={
     mode:"outlined",
     activeOutlineColor:colors.color1
 }
+
+export const images = {
+    defaultImg: require('../assets/defaultImg.jpg').uri,
+  };

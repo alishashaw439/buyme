@@ -5,7 +5,7 @@ import { Avatar, Button } from 'react-native-paper'
 import ButtonBox from '../components/ButtonBox'
 import Footer from '../components/Footer'
 import Loader from '../components/Loader'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useMessageAndErrorUser } from '../utils/hooks'
 import { logout } from '../redux/actions/userAction'
 
@@ -14,17 +14,19 @@ const user = {
     email: "test@gmail.com"
 }
 
-export const Profile = ({ navigation,route }: { navigation: any,route:any }) => {
-    const [avatar, setAvatar] = useState("")
+export const Profile = ({ navigation, route }: { navigation: any, route: any }) => {
+    const { user } = useSelector(state => state.user)
+    const [avatar, setAvatar] =
+        useState(user?.avatar ? user.avatar.url : "")
     const dispatch = useDispatch()
-    const loading = useMessageAndErrorUser(navigation,dispatch,"login")
+    const loading = useMessageAndErrorUser(navigation, dispatch, "login")
     const logoutHandler = () => {
-      dispatch(logout())
-   }
+        dispatch(logout())
+    }
     const navigateHandler = (text: string) => {
-        switch(text){
+        switch (text) {
             case "Admin":
-                navigation.navigate("adminpanel",{navigation})
+                navigation.navigate("adminpanel", { navigation })
                 break;
             case "Orders":
                 navigation.navigate("orders")
@@ -45,86 +47,91 @@ export const Profile = ({ navigation,route }: { navigation: any,route:any }) => 
         }
     }
 
-    useEffect(()=>{
-        if(route.params){
-            if(route.params.images){
+    useEffect(() => {
+        if (route.params) {
+            if (route.params.images) {
                 setAvatar(route.params.images[0].uri)
             }
         }
-    },[route.params])
+    }, [route.params])
     return (
         <>
-        <View style={styles.defaultStyle}>
-            <View style={{ marginBottom: 20 }}>
-                <Text style={styles.heading}>Profile</Text>
-            </View>
-            {/* Loading */}
-           {
-            loading ? <Loader/> : (
-                <>
-                <View style={profileStyles.container}>
-                <Avatar.Image
-                    size={100}
-                    source={{
-                        uri: avatar
-                    }}
-                    style={{ backgroundColor: colors.color1 }}
-                />
-                <TouchableOpacity onPress={() =>
-                    navigation.navigate("camera", { updateProfile: true })}>
-                    <Button textColor={colors.color1}>Change Photo</Button>
-                </TouchableOpacity>
-                <Text style={profileStyles.nameStyle}>{user.name}</Text>
-                <Text style={{
-                    fontWeight: "300",
-                    color: colors.color2
-                }}>{user.email}</Text>
-            </View>
-            <View>
-                <View style={{
-                    flexDirection: "row",
-                    margin: 10,
-                    justifyContent: "space-between"
-                }}>
-                    <ButtonBox
-                        text={"Orders"}
-                        icon={"format-list-bulleted-square"}
-                        handler={navigateHandler}
-                    />
-                    <ButtonBox
-                        reverse={true}
-                        icon={"view-dashboard"}
-                        text={"Admin"}
-                        handler={navigateHandler}
-                    />
-                    <ButtonBox
-                        text={"Profile"}
-                        handler={navigateHandler}
-                        icon={"pencil"}
-                    />
+            <View style={styles.defaultStyle}>
+                <View style={{ marginBottom: 20 }}>
+                    <Text style={styles.heading}>Profile</Text>
                 </View>
-                <View style={{
-                    flexDirection: "row",
-                    margin: 10,
-                    justifyContent: "space-evenly"
-                }}>
-                    <ButtonBox
-                        text={"Password"}
-                        handler={navigateHandler}
-                        icon={"pencil"}
-                    />
-                    <ButtonBox
-                        text={"Sign Out"}
-                        handler={navigateHandler}
-                        icon={"exit-to-app"}
-                    />
-                </View>
+                {/* Loading */}
+                {
+                    loading ? <Loader /> : (
+                        <>
+                            <View style={profileStyles.container}>
+                                <Avatar.Image
+                                    size={100}
+                                    source={{
+                                        uri: avatar
+                                    }}
+                                    style={{ backgroundColor: colors.color1 }}
+                                />
+                                <TouchableOpacity onPress={() =>
+                                    navigation.navigate("camera", { updateProfile: true })}>
+                                    <Button textColor={colors.color1}>Change Photo</Button>
+                                </TouchableOpacity>
+                                <Text style={profileStyles.nameStyle}>{user.name}</Text>
+                                <Text style={{
+                                    fontWeight: "300",
+                                    color: colors.color2
+                                }}>{user.email}</Text>
+                            </View>
+                            <View>
+                                <View style={{
+                                    flexDirection: "row",
+                                    margin: 10,
+                                    justifyContent: "space-between"
+                                }}>
+                                    <ButtonBox
+                                        text={"Orders"}
+                                        icon={"format-list-bulleted-square"}
+                                        handler={navigateHandler}
+                                    />
+                                    {
+                                        user?.role === "admin" && (
+                                            <ButtonBox
+                                                reverse={true}
+                                                icon={"view-dashboard"}
+                                                text={"Admin"}
+                                                handler={navigateHandler}
+                                            />
+                                        )
+                                    }
+
+                                    <ButtonBox
+                                        text={"Profile"}
+                                        handler={navigateHandler}
+                                        icon={"pencil"}
+                                    />
+                                </View>
+                                <View style={{
+                                    flexDirection: "row",
+                                    margin: 10,
+                                    justifyContent: "space-evenly"
+                                }}>
+                                    <ButtonBox
+                                        text={"Password"}
+                                        handler={navigateHandler}
+                                        icon={"pencil"}
+                                    />
+                                    <ButtonBox
+                                        text={"Sign Out"}
+                                        handler={navigateHandler}
+                                        icon={"exit-to-app"}
+                                    />
+                                </View>
+                            </View>
+                        </>
+                    )
+                }
             </View>
-            </>
-            )
-           }
-        </View>
-        <Footer/>
+            <Footer />
         </>
     )
 }
