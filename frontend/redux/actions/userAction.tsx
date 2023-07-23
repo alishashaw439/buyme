@@ -68,7 +68,7 @@ export const loadUser = () => async(dispatch:any)=>{
         const {data} = await axios.get(`${server}/user/profile`,{
             withCredentials:true
         })
-       console.log(data)
+       console.log("boom",data)
         dispatch({
             type:"loadUserSuccess",
             payload:data.user

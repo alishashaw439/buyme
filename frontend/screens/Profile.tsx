@@ -8,6 +8,8 @@ import Loader from '../components/Loader'
 import { useDispatch, useSelector } from 'react-redux'
 import { useMessageAndErrorUser } from '../utils/hooks'
 import { logout } from '../redux/actions/userAction'
+import { loadUser } from '../redux/actions/userAction'
+import { useIsFocused } from '@react-navigation/native'
 
 const user = {
     name: "Alisha",
@@ -19,7 +21,8 @@ export const Profile = ({ navigation, route }: { navigation: any, route: any }) 
     const [avatar, setAvatar] =
         useState(user?.avatar ? user.avatar.url : "")
     const dispatch = useDispatch()
-    const loading = useMessageAndErrorUser(navigation, dispatch, "login")
+    const isFocused = useIsFocused()
+    const loading = useMessageAndErrorUser(navigation, dispatch,"login")
     const logoutHandler = () => {
         dispatch(logout())
     }
@@ -53,7 +56,8 @@ export const Profile = ({ navigation, route }: { navigation: any, route: any }) 
                 setAvatar(route.params.images[0].uri)
             }
         }
-    }, [route.params])
+        dispatch(loadUser())
+    }, [route.params,dispatch,isFocused])
     return (
         <>
             <View style={styles.defaultStyle}>
@@ -76,11 +80,11 @@ export const Profile = ({ navigation, route }: { navigation: any, route: any }) 
                                     navigation.navigate("camera", { updateProfile: true })}>
                                     <Button textColor={colors.color1}>Change Photo</Button>
                                 </TouchableOpacity>
-                                <Text style={profileStyles.nameStyle}>{user.name}</Text>
+                                <Text style={profileStyles.nameStyle}>{user?.name}</Text>
                                 <Text style={{
                                     fontWeight: "300",
                                     color: colors.color2
-                                }}>{user.email}</Text>
+                                }}>{user?.email}</Text>
                             </View>
                             <View>
                                 <View style={{

@@ -1,11 +1,12 @@
 import { useEffect } from "react"
 import { Toast } from "react-native-toast-message/lib/src/Toast"
 import { useSelector } from "react-redux"
+import { loadUser } from "../redux/actions/userAction"
 
 
 export const useMessageAndErrorUser = (navigation,dispatch,navigateTo="login")=>{
     const {loading,message,error} = useSelector((state)=> state.user)
-
+    console.log("from hook",navigateTo)
     useEffect(()=>{
         if(error){
             Toast.show({
@@ -25,10 +26,40 @@ export const useMessageAndErrorUser = (navigation,dispatch,navigateTo="login")=>
                 type:"success",
                 text1:message
             })
+            dispatch(loadUser());
         }
         dispatch({
             type:"clearMessage",
         })
+       
+    },[error,message,dispatch])
+    return loading
+}
+
+export const useMessageAndErrorOther = (dispatch,navigation,navigateTo,func)=>{
+    const {loading,message,error} = useSelector((state)=> state.other)
+
+    useEffect(()=>{
+        if(error){
+            Toast.show({
+                type:"error",
+                text1:error
+            })
+        }
+        dispatch({
+            type:"clearError",
+        })
+        if(message){
+            Toast.show({
+                type:"success",
+                text1:message
+            })
+            navigateTo && navigation.navigate(navigateTo)
+        }
+        dispatch({
+            type:"clearMessage",
+        })
+       func && dispatch(func()) 
     },[error,message,dispatch])
     return loading
 }

@@ -4,23 +4,28 @@ import { colors, styles } from '../styles/styles'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Button, TextInput } from 'react-native-paper'
 import { Header } from '../components/Header'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateProfile } from '../redux/actions/otherAction'
+import { useMessageAndErrorOther } from '../utils/hooks'
 
 
 export const UpdateProfile = ({ navigation }: { navigation: any }) => {
-    const [name, setName] = useState("")
-    const [email, setEmail] = useState("")
-    const [address, setAddress] = useState("")
-    const [city, setCity] = useState("")
-    const [pincode, setPincode] = useState("")
-    const [country, setCountry] = useState("")
 
-    const disabledbtn = !name || !email || !address || !city || !pincode || !country
-       
+   const {user} = useSelector(state=>state.user)
+
+    const [name, setName] = useState(user?.name)
+    const [email, setEmail] = useState(user?.email)
+    const [address, setAddress] = useState(user?.address)
+    const [city, setCity] = useState(user?.city)
+    const [pincode, setPincode] = useState(user?.pincode.toString())
+    const [country, setCountry] = useState(user?.country)
+
+    const dispatch = useDispatch()
     const submitHandler = () => {
-        Alert.alert("updated")
-        //TODO
+       dispatch(updateProfile(name,email,address,city,country,pincode))
     }
-    const loading = false
+   const loading = useMessageAndErrorOther(dispatch,navigation,"profile")
+
     return (
         <View style={{...styles.defaultStyle,backgroundColor:colors.color2}}>
             <SafeAreaView style={{ flex: 1 }}>
@@ -82,7 +87,6 @@ export const UpdateProfile = ({ navigation }: { navigation: any }) => {
                     <Button 
                      loading={loading}
                         textColor={colors.color2}
-                        disabled={disabledbtn}
                         onPress={submitHandler}
                         style={styles.formBtn}>Update</Button>
                 </View>

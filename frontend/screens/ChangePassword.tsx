@@ -5,14 +5,21 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { Button, TextInput } from 'react-native-paper'
 import Footer from '../components/Footer'
 import { Header } from '../components/Header'
+import { useDispatch } from 'react-redux'
+import { changePassword } from '../redux/actions/otherAction'
+import { useMessageAndErrorOther } from '../utils/hooks'
 
-export const ChangePassword = ({ navigation }: { navigation: any }) => {
+export const ChangePassword = () => {
     const [oldPassword, setOldPassword] = useState("")
     const [newPassword, setNewPassword] = useState("")
+    const dispatch = useDispatch()
+   const loading = useMessageAndErrorOther(dispatch)
     const submitHandler = () => {
-        Alert.alert("submitted")
+       dispatch(changePassword(oldPassword,newPassword))
+       setNewPassword("")
+       setOldPassword("")
     }
-    const loading = false
+  
     return (
         <View style={{ ...styles.defaultStyle, backgroundColor: colors.color2 }}>
             <SafeAreaView style={{ flex: 1 }}>
