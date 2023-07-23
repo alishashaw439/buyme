@@ -68,3 +68,32 @@ export const updateProfile = (
         })
     }
 }
+
+
+export const updatePic = (formData) => async(dispatch:any)=>{
+    try{
+        dispatch({
+            type:"updatePicRequest"
+        })
+        const {data} = await axios.put(`${server}/user/updatepic`,formData,{
+            headers:{
+                "Content-type":"multipart/form-data"
+            },
+            withCredentials:true
+        })
+        dispatch({
+            type:"updatePicSuccess",
+            payload:data.message
+        })
+        console.log("successs update pic")
+    }catch(error){
+        if (error.response) {
+            console.log(error.response.status);
+            console.log(error.response.data);
+          }
+        dispatch({
+            type:"updatePicFail",
+            payload: error.response.data.message
+        })
+    }
+}

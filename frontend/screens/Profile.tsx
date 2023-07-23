@@ -6,10 +6,12 @@ import ButtonBox from '../components/ButtonBox'
 import Footer from '../components/Footer'
 import Loader from '../components/Loader'
 import { useDispatch, useSelector } from 'react-redux'
-import { useMessageAndErrorUser } from '../utils/hooks'
+import { useMessageAndErrorOther, useMessageAndErrorUser } from '../utils/hooks'
 import { logout } from '../redux/actions/userAction'
 import { loadUser } from '../redux/actions/userAction'
 import { useIsFocused } from '@react-navigation/native'
+import mime from "mime"
+import { updatePic } from '../redux/actions/otherAction'
 
 const user = {
     name: "Alisha",
@@ -22,7 +24,7 @@ export const Profile = ({ navigation, route }: { navigation: any, route: any }) 
         useState(user?.avatar ? user.avatar.url : "")
     const dispatch = useDispatch()
     const isFocused = useIsFocused()
-    const loading = useMessageAndErrorUser(navigation, dispatch,"login")
+    const loading = useMessageAndErrorUser(navigation, dispatch, "login")
     const logoutHandler = () => {
         dispatch(logout())
     }
@@ -50,14 +52,23 @@ export const Profile = ({ navigation, route }: { navigation: any, route: any }) 
         }
     }
 
+    const loadingPic = useMessageAndErrorOther(dispatch, null, null, loadUser)
+    console.log("sjkd",loadingPic)
     useEffect(() => {
         if (route.params) {
             if (route.params.images) {
                 setAvatar(route.params.images[0].uri)
+                const myForm = new FormData()
+                myForm.append("file", {
+                    uri: route.params.images[0].uri,
+                    type: mime.getType(route.params.images[0].uri),
+                    name: route.params.images[0].uri.split("/").pop()
+                })
+                dispatch(updatePic(myForm))
             }
         }
         dispatch(loadUser())
-    }, [route.params,dispatch,isFocused])
+    }, [route.params, dispatch, isFocused])
     return (
         <>
             <View style={styles.defaultStyle}>
@@ -76,9 +87,11 @@ export const Profile = ({ navigation, route }: { navigation: any, route: any }) 
                                     }}
                                     style={{ backgroundColor: colors.color1 }}
                                 />
-                                <TouchableOpacity onPress={() =>
-                                    navigation.navigate("camera", { updateProfile: true })}>
-                                    <Button textColor={colors.color1}>Change Photo</Button>
+                                <TouchableOpacity
+                                    disabled={loadingPic}
+                                    onPress={() =>
+                                        navigation.navigate("camera", { updateProfile: true })}>
+                                    <Button disabled ={loadingPic}loading={loadingPic} textColor={colors.color1}>Change Photo</Button>
                                 </TouchableOpacity>
                                 <Text style={profileStyles.nameStyle}>{user?.name}</Text>
                                 <Text style={{

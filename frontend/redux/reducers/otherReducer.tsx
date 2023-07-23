@@ -5,16 +5,23 @@ export const otherReducer = createReducer({},builder=>{
         state.loading = true
     }).addCase("updateProfileRequest",(state)=>{
         state.loading = true
+    }).addCase("updatePicRequest",(state)=>{
+        state.loading = true
     }).addCase("changePasswordSuccess",(state,action)=>{
         state.loading = false
         state.message = action.payload
     }).addCase("updateProfileSuccess",(state,action)=>{
         state.loading = false
         state.message = action.payload
+    }).addCase("updatePicSuccess",(state)=>{
+        state.loading = true
     }).addCase("changePasswordFail",(state,action)=>{
         state.loading = false
         state.error = action.payload
     }).addCase("updateProfileFail",(state,action)=>{
+        state.loading = false
+        state.error = action.payload
+    }).addCase("updatePicFail",(state,action)=>{
         state.loading = false
         state.error = action.payload
     })

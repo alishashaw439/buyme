@@ -55,11 +55,13 @@ export const useMessageAndErrorOther = (dispatch,navigation,navigateTo,func)=>{
                 text1:message
             })
             navigateTo && navigation.navigate(navigateTo)
+            func && dispatch(func()) 
         }
         dispatch({
             type:"clearMessage",
         })
-       func && dispatch(func()) 
+      
     },[error,message,dispatch])
+    console.log("jjj",loading)
     return loading
 }
