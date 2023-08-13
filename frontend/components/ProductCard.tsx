@@ -24,7 +24,7 @@ export const ProductCard = ({ stock,
     return (
         <TouchableOpacity activeOpacity={1} onPress={() => navigate.navigate("productdetails", { id })}>
             <View style={{
-                elevation: 5, width: 220,
+                elevation: 5, width: 280,
                 alignItems: "center", justifyContent: "space-between",
                 margin: 20,
                 borderRadius: 20,
@@ -53,7 +53,8 @@ export const ProductCard = ({ stock,
                     style={{
                         color:i % 2 === 0 ? colors.color2 : colors.color1,
                         fontSize:25,
-                        fontWeight:"300"
+                        fontWeight:"300",
+                        width:"60%"
                     }}
                     >{name}</Text>
                     <Text
