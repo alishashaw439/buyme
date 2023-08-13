@@ -6,36 +6,41 @@ import { Button } from 'react-native-paper'
 import CartItem from '../components/CartItem'
 import { useNavigation } from '@react-navigation/native'
 import { Heading } from '../components/Heading'
-
-export const cartItems = [
-    {
-        name: "Minion",
-        image: "https://www.pngmart.com/files/12/Bob-Minion-Transparent-PNG.png",
-        product: 543,
-        stock: 4,
-        price: 500,
-        quantity: 2
-    },
-    {
-        name: "Minion kevin",
-        image: "https://www.pngmart.com/files/12/Stuart-Minion-PNG-Pic.png",
-        product: 546,
-        stock: 10,
-        price: 503,
-        quantity: 4
-    }
-]
-
-const incrementHandler = (id:number,qty:number,stock:number)=>{
-    console.log("increasing",id,qty,stock)
-  
-}
-const decrementHandler = (id:number,qty:number)=>{
-    console.log("decreasing",id,qty)
-}
+import { useDispatch, useSelector } from 'react-redux'
+import Toast from 'react-native-toast-message'
 
 export const Cart = () => {
     const navigation = useNavigation();
+    const dispatch = useDispatch()
+    const {cartItems} = useSelector((state)=>state.cart)
+    const incrementHandler = (id,name,price,image,stock,quantity)=>{
+        const newQty = quantity + 1 
+        if(stock<=quantity) return Toast.show({
+            type:"error",
+            text1:"Maximum value added"
+        })
+        dispatch({
+            type:"addToCart",
+            payload:{
+                product:id,
+                name,price,image,stock,quantity:newQty
+            }
+        })
+    }
+    const decrementHandler = (id:number,name,price,image,stock:number,quantity:number)=>{
+        const newQty = quantity-1 
+        if(quantity <= 1) return dispatch({
+            type:"removeFromCart",
+            payload:id
+        })
+        dispatch({
+            type:"addToCart",
+            payload:{
+                product:id,
+                name,price,image,stock,quantity:newQty
+            }
+        })
+    }
     return (
         <View style={{
             ...styles.defaultStyle,
@@ -55,7 +60,8 @@ export const Cart = () => {
             }}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     {
-                        cartItems.map((i, index) => {
+                       cartItems.length > 0 ? cartItems.map((i, index) => {
+                        console.log("hhh",i)
                             return (
                                 <CartItem
                                 navigation={navigation}
@@ -72,6 +78,9 @@ export const Cart = () => {
                                 ></CartItem>
                             );
                         })
+                        :(
+                            <Text style={{textAlign:"center",fontSize:18}}>No Items yet</Text>
+                        )
                     }
                 </ScrollView>
             </View>

@@ -74,7 +74,7 @@ export const ProductCard = ({ stock,
                     width:"100%"
                   }}
                 >
-                    <Button onPress={()=>addToCartHandler(id,stock)} textColor={i % 2 === 0 ? colors.color1:colors.color2}>Add To Cart</Button>
+                    <Button onPress={()=>addToCartHandler(id,name,price,image,stock)} textColor={i % 2 === 0 ? colors.color1:colors.color2}>Add To Cart</Button>
                 </TouchableOpacity>
             </View>
         </TouchableOpacity>

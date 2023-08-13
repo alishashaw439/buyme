@@ -13,21 +13,9 @@ const SLIDER_WIDTH = Dimensions.get("window").width
 const horizontalMargin = 20;
 const ITEM_WIDTH = Dimensions.get("window").width
 
-// const name = "Minion"
-// const price = 300
-// const stock = 5
-// const description = "Minions are an all-male species of fictional yellow creatures that appear in Illumination's Despicable Me franchise. They are characterized by their childlike behavior and their language, which is largely unintelligible."
-// const images = [
-//     {
-//         _id:"241",
-//         url:"https://www.pngmart.com/files/12/Bob-Minion-Transparent-PNG.png"
-//     },
-//     {
-//         _id:"242",
-//         url:"https://www.pngmart.com/files/12/Stuart-Minion-PNG-Pic.png"
-//     }
-// ]
+
 const ProductDetails = ({route}:{route:any}) => {
+  const id = route.params.id
   const carouselRef = useRef(null)
   const [quantity,setQuantity] = useState(1)
   const dispatch = useDispatch()
@@ -46,21 +34,28 @@ const ProductDetails = ({route}:{route:any}) => {
   } 
   
   const addToCartHandler = () =>{
-    if(stock === 0) return Toast.show({
-        type:"error",
-        text1:"Out Of Stock",
-    })
-    Toast.show({
-        type:"success",
-        text1:"Added to Cart",
-    })
-
-    
+    if(stock===0){
+      return Toast.show({
+          type:"error",
+          text1:"Out Of Stock"
+      })
+  }
+  dispatch({
+      type:"addToCart",
+      payload:{
+          product:id,
+          name,price,image:images[0]?.url,stock,quantity
+      }
+  })
+  Toast.show({
+      type:"success",
+      text1:"Added to Cart"
+  })
   }
 
   useEffect(()=>{
-    dispatch(getProductDetails(route.params.id))
-  },[dispatch,route.params.id,isFocused])
+    dispatch(getProductDetails(id))
+  },[dispatch,id,isFocused])
 
   return (
     <View style={styles.productDetailsStyle}>

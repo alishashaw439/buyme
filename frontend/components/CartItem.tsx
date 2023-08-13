@@ -7,7 +7,7 @@ const CartItem = (
     { name, id, stock, qty, amount, image, index, incrementHandler, decrementHandler,navigation }:
         {
             name: string, id: number, stock: number, qty: number,navigation:any,
-            amount: number, image: string, index: number, incrementHandler: (id:number,qty:number,stock:number) => void, decrementHandler: (id:number,qty:number) => void
+            amount: number, image: string, index: number, incrementHandler: (id,name,amount,image,stock,qty) => any, decrementHandler: (id,name,amount,image,stock,qty) => any
         }
 ) => {
     return (
@@ -58,7 +58,7 @@ const CartItem = (
                 justifyContent: "space-between",
                 alignSelf: "center"
             }}>
-                <TouchableOpacity onPress={() => decrementHandler(id, qty)}>
+                <TouchableOpacity onPress={() => decrementHandler(id,name,amount,image,stock,qty)}>
                     <Avatar.Icon icon={"minus"} size={20} style={{
                         borderRadius: 5,
                         backgroundColor: colors.color5,
@@ -75,7 +75,7 @@ const CartItem = (
                     borderWidth: 1,
                     borderColor: colors.color5
                 }}>{qty}</Text>
-                <TouchableOpacity onPress={() => incrementHandler(id, qty, stock)}>
+                <TouchableOpacity onPress={() => incrementHandler(id,name,amount,image,stock,qty)}>
                     <Avatar.Icon icon={"plus"} size={20} style={{
                         borderRadius: 5,
                         backgroundColor: colors.color5,

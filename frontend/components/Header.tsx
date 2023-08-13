@@ -2,12 +2,16 @@ import { Avatar } from "react-native-paper";
 import { TouchableOpacity } from "react-native";
 import { colors } from "../styles/styles";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
 
 export const Header = ({ back,emptyCart }: { back: any,emptyCart:boolean }) => {
     const navigation = useNavigation()
     const route = useRoute()
+    const dispatch = useDispatch()
     const emptyCartHandler = ()=>{
-        console.log("cart is empty");
+        dispatch({
+            type:"clearCart"
+        })
     }
     return (
         <>
