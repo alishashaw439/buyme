@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { Avatar, Button } from "react-native-paper";
@@ -10,13 +10,7 @@ import SearchModal from "../components/SearchModal";
 import { colors, styles } from "../styles/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../redux/actions/productAction";
-
-const categories = [{category:"clothes",_id:"234"},
-{category:"shoes",_id:"633"},
-{category:"accessories",_id:"543"},
-{category:"furniture",_id:"342"}
-]
-
+import { useSetCategories } from "../utils/hooks";
 
 export const Home = () => {
 
@@ -24,7 +18,9 @@ export const Home = () => {
    const navigation = useNavigation()
    const [activeSearch, setActiveSearch] = useState(false);
    const [searchQuery,setSearchQuery] = useState("")
+   const [categories,setCategories] = useState([])
    const dispatch = useDispatch()
+   const isFocused = useIsFocused()
    const { products } = useSelector((state)=>state.product)
    const categoryHandler = (id:any)=>{
        setCategory(id)
@@ -33,9 +29,15 @@ export const Home = () => {
      navigation.navigate("cart")
    }
 
+   useSetCategories(setCategories,isFocused)
    useEffect(()=>{
-    dispatch(getAllProducts())
-   },[dispatch])
+    const timeOutId = setTimeout(()=>{
+        dispatch(getAllProducts(searchQuery,category))
+    },500)
+    return ()=>{
+        clearTimeout(timeOutId)
+    }
+   },[dispatch,searchQuery,category,isFocused])
 
    console.log(category)
     return (
