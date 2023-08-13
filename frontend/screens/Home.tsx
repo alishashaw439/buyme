@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { Avatar, Button } from "react-native-paper";
 import Footer from "../components/Footer";
@@ -8,40 +8,15 @@ import { Heading } from "../components/Heading";
 import { ProductCard } from "../components/ProductCard";
 import SearchModal from "../components/SearchModal";
 import { colors, styles } from "../styles/styles";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllProducts } from "../redux/actions/productAction";
 
 const categories = [{category:"clothes",_id:"234"},
 {category:"shoes",_id:"633"},
 {category:"accessories",_id:"543"},
 {category:"furniture",_id:"342"}
 ]
-export const products  = [
-    {
-        price:20,
-        name:"Sample",
-        _id:"241",
-        stock:20,
-        category:"7y392",
-        images:[
-            {
-                url:"https://www.pngmart.com/files/12/Bob-Minion-Transparent-PNG.png"
-            }
-        ]
 
-    },
-    {
-        price:40,
-        name:"Bello",
-        _id:"242",
-        stock:20,
-        category:"7e392",
-        images:[
-            {
-                url:"https://www.pngmart.com/files/12/Stuart-Minion-PNG-Pic.png"
-            }
-        ]
-
-    }
-];
 
 export const Home = () => {
 
@@ -49,12 +24,19 @@ export const Home = () => {
    const navigation = useNavigation()
    const [activeSearch, setActiveSearch] = useState(false);
    const [searchQuery,setSearchQuery] = useState("")
+   const dispatch = useDispatch()
+   const { products } = useSelector((state)=>state.product)
    const categoryHandler = (id:any)=>{
        setCategory(id)
    }
    const addToCartHandler =(id:string)=>{
      navigation.navigate("cart")
    }
+
+   useEffect(()=>{
+    dispatch(getAllProducts())
+   },[dispatch])
+
    console.log(category)
     return (
         <>

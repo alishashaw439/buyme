@@ -1,5 +1,5 @@
 import axios from "axios"
-import {server} from "../store.tsx"
+import {server} from "../store"
 
 export const register = (formData) => async(dispatch:any)=>{
     try{
@@ -61,6 +61,7 @@ export const login = (email,password) => async(dispatch:any)=>{
 }
 
 export const loadUser = () => async(dispatch:any)=>{
+    console.log("eeeee")
     try{
         dispatch({
             type:"loadUserRequest"
