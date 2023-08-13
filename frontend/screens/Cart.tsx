@@ -89,8 +89,8 @@ export const Cart = () => {
                 justifyContent: "space-between",
                 paddingHorizontal: 35,
             }}>
-                <Text>5 items</Text>
-                <Text>₹500</Text>
+                <Text>{cartItems.length} items</Text>
+                <Text>{cartItems.reduce((prev,curr)=>prev + curr.quantity * curr.price,0)}</Text>
             </View>
             <TouchableOpacity onPress={()=> cartItems.length > 0 ? navigation.navigate("confirmorder") : null}>
                 <Button
