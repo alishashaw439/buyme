@@ -1,31 +1,40 @@
 import { View, Text, Dimensions, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { colors, styles } from '../styles/styles'
 import { Header } from '../components/Header'
 import { Avatar, Button } from 'react-native-paper'
 import { Toast } from 'react-native-toast-message/lib/src/Toast'
 import Carousel from 'react-native-snap-carousel'
+import { useDispatch, useSelector } from 'react-redux'
+import { useIsFocused } from '@react-navigation/native'
+import { getProductDetails } from '../redux/actions/productAction'
 
 const SLIDER_WIDTH = Dimensions.get("window").width
 const horizontalMargin = 20;
 const ITEM_WIDTH = Dimensions.get("window").width
-const name = "Minion"
-const price = 300
-const stock = 5
-const description = "Minions are an all-male species of fictional yellow creatures that appear in Illumination's Despicable Me franchise. They are characterized by their childlike behavior and their language, which is largely unintelligible."
-const images = [
-    {
-        _id:"241",
-        url:"https://www.pngmart.com/files/12/Bob-Minion-Transparent-PNG.png"
-    },
-    {
-        _id:"242",
-        url:"https://www.pngmart.com/files/12/Stuart-Minion-PNG-Pic.png"
-    }
-]
+
+// const name = "Minion"
+// const price = 300
+// const stock = 5
+// const description = "Minions are an all-male species of fictional yellow creatures that appear in Illumination's Despicable Me franchise. They are characterized by their childlike behavior and their language, which is largely unintelligible."
+// const images = [
+//     {
+//         _id:"241",
+//         url:"https://www.pngmart.com/files/12/Bob-Minion-Transparent-PNG.png"
+//     },
+//     {
+//         _id:"242",
+//         url:"https://www.pngmart.com/files/12/Stuart-Minion-PNG-Pic.png"
+//     }
+// ]
 const ProductDetails = ({route}:{route:any}) => {
   const carouselRef = useRef(null)
   const [quantity,setQuantity] = useState(1)
+  const dispatch = useDispatch()
+  const isFocused = useIsFocused()
+  const {product:{
+    name,price,stock,description,images
+  }} = useSelector((state)=>state.product)
   const incrementQty = () =>{
     if(quantity>=stock) return
     setQuantity((prev)=>prev+1)
@@ -48,6 +57,10 @@ const ProductDetails = ({route}:{route:any}) => {
 
     
   }
+
+  useEffect(()=>{
+    dispatch(getProductDetails(route.params.id))
+  },[dispatch,route.params.id,isFocused])
 
   return (
     <View style={styles.productDetailsStyle}>

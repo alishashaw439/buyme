@@ -39,7 +39,6 @@ export const Home = () => {
     }
    },[dispatch,searchQuery,category,isFocused])
 
-   console.log(category)
     return (
         <>
         { activeSearch && <SearchModal searchQuery={searchQuery} setSearchQuery={setSearchQuery}
@@ -99,6 +98,7 @@ setActiveSearch={setActiveSearch} products = {products} />}
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     {
                     products.map((item,index)=>{
+                        console.log("weee",index)
                         return(
                             <ProductCard
                               stock={item.stock}

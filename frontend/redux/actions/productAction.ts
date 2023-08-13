@@ -59,7 +59,7 @@ export const getProductDetails = (id:any) => async(dispatch:any)=>{
         const {data} = await axios.get(`${server}/product/single/${id}`,{
             withCredentials:true
         })
-       console.log("boom",data)
+       console.log("product details",data)
         dispatch({
             type:"getProductDetailsSuccess",
             payload:data.product
