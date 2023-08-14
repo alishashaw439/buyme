@@ -51,8 +51,7 @@ const ConfirmOrder = () => {
         <PriceTag heading='Tax' value={tax}/>
         <PriceTag heading='Total' value={totalAmount}/>
 
-        <TouchableOpacity onPress={()=>navigation.navigate("payment",
-        itemsPrice,shippingCharges,tax,totalAmount) }>
+        <TouchableOpacity onPress={()=>navigation.navigate("payment",{itemsPrice,shippingCharges,tax,totalAmount}) }>
             <Button style={{
                 backgroundColor:colors.color3,
                 borderRadius:100,

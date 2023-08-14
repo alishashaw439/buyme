@@ -97,3 +97,32 @@ export const updatePic = (formData) => async(dispatch:any)=>{
         })
     }
 }
+
+export const placeOrder = (shippingInfo,orderItems,paymentMethod,paymentInfo,itemsPrice,taxPrice,shippingCharges,totalAmount) => async (dispatch:any)=>{
+    console.log("yo 1")
+    try{
+        dispatch({
+            type:"placeOrderRequest",
+        })
+        const {data} = await axios.post(`${server}/order/new`,{
+            shippingInfo,orderItems,paymentMethod,paymentInfo,itemsPrice,taxPrice,shippingCharges,totalAmount
+        },{
+           headers:{
+            "Content-Type":"application/json"
+           },
+           withCredentials:true
+        })
+        console.log("yo 2",data)
+        dispatch({
+            type:"placeOrderSuccess",
+            payload:data.message
+        })
+
+    }catch(error){
+        console.log("yo error",error)
+        dispatch({
+            type:"placeOrderFail",
+            payload:error.response.data.message
+        })
+    }
+}

@@ -115,7 +115,6 @@ setActiveSearch={setActiveSearch} products = {products} />}
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     {
                     products.map((item,index)=>{
-                        console.log("weee",index)
                         return(
                             <ProductCard
                               stock={item.stock}

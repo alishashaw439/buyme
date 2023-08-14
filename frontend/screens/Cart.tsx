@@ -61,7 +61,6 @@ export const Cart = () => {
                 <ScrollView showsVerticalScrollIndicator={false}>
                     {
                        cartItems.length > 0 ? cartItems.map((i, index) => {
-                        console.log("hhh",i)
                             return (
                                 <CartItem
                                 navigation={navigation}

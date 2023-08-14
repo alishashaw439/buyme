@@ -61,7 +61,6 @@ export const login = (email,password) => async(dispatch:any)=>{
 }
 
 export const loadUser = () => async(dispatch:any)=>{
-    console.log("eeeee")
     try{
         dispatch({
             type:"loadUserRequest"
@@ -69,7 +68,6 @@ export const loadUser = () => async(dispatch:any)=>{
         const {data} = await axios.get(`${server}/user/profile`,{
             withCredentials:true
         })
-       console.log("boom",data)
         dispatch({
             type:"loadUserSuccess",
             payload:data.user

@@ -11,7 +11,6 @@ const ProductImages = ({navigation,route}:{navigation:any,route:any}) => {
   const [image,setImage] = useState("")
   const [imageChange,setImageChange] = useState(false)
   const loading = false
-  console.log("eeee",images)
   useEffect(()=>{
     if(route.params.images){
         setImage(route.params.images[0].uri)

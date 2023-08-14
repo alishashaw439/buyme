@@ -53,7 +53,6 @@ export const Profile = ({ navigation, route }: { navigation: any, route: any }) 
     }
 
     const loadingPic = useMessageAndErrorOther(dispatch, null, null, loadUser)
-    console.log("sjkd",loadingPic)
     useEffect(() => {
         if (route.params) {
             if (route.params.images) {

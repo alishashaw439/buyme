@@ -13,6 +13,7 @@
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
     "@reduxjs/toolkit": "^1.9.5",
+    "@stripe/stripe-react-native": "^0.30.0",
     "@types/react-native-snap-carousel": "^3.8.5",
     "axios": "^1.4.0",
     "expo-modules-core": "^1.2.7",

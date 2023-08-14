@@ -9,7 +9,6 @@ export const getAllProducts = (keyword,category) => async(dispatch:any)=>{
         const {data} = await axios.get(`${server}/product/all?keyword=${keyword}&category=${category}`,{
             withCredentials:true
         })
-       console.log("boom",data)
         dispatch({
             type:"getAllProductsSuccess",
             payload:data.products
@@ -34,7 +33,6 @@ export const getAdminProducts = () => async(dispatch:any)=>{
         const {data} = await axios.get(`${server}/product/admin`,{
             withCredentials:true
         })
-       console.log("boom",data)
         dispatch({
             type:"getAdminProductsSuccess",
             payload:data
