@@ -6,10 +6,14 @@ import Loader from "../../components/Loader"
 import { ProductListHeading } from "../../components/ProductListHeading"
 import ProductListItem from "../../components/ProductListItem"
 import {styles,colors} from "../../styles/styles"
+import { useDispatch } from "react-redux"
+import { useAdminProducts } from "../../utils/hooks"
+import { useIsFocused } from "@react-navigation/native"
 
 export const AdminPanel = ({navigation}:{navigation:any}) => {
-    const loading = false
-    const products = []
+    const dispatch = useDispatch()
+    const isFocused = useIsFocused()
+   const {loading,products,inStock,outOfStock} = useAdminProducts(dispatch,isFocused)
     const navigationHandler = (text:string) =>{
     switch(text){
         case "Category":
@@ -19,7 +23,6 @@ export const AdminPanel = ({navigation}:{navigation:any}) => {
             navigation.navigate("adminorders")
             break
         case "Product":
-            console.log("aayaa")
             navigation.navigate("newproduct")
             break
         default:
@@ -37,7 +40,9 @@ export const AdminPanel = ({navigation}:{navigation:any}) => {
                 <Text style={styles.heading}>Admin Panel</Text>
                 {
                     loading ? (
+                        <View style={{alignSelf:"center",justifyContent:"center"}}>
                         <Loader/>
+                        </View>
                     ):(
                         <>
                         <View
@@ -47,7 +52,7 @@ export const AdminPanel = ({navigation}:{navigation:any}) => {
                         
                          </View>
                         
-                        <Chart inStock={12} outOfStock={2}/>
+                        <Chart inStock={inStock} outOfStock={outOfStock}/>
                          <View >
                             <View style={{
                                 flexDirection:"row",
@@ -77,16 +82,19 @@ export const AdminPanel = ({navigation}:{navigation:any}) => {
                             <View>
                                 {
                                     products.map((item:any,index:any)=>(
+                                        
                                         <ProductListItem 
+                                            key={item._id}
+                                            navigation = {navigation}
                                             id={item._id}
                                             i={index}
                                             deleteHandler={deleteProductHandler}
                                             price={item.price}
                                             stock={item.stock}
                                             name={item.name}
-                                            category={item.category}
-                                            imageSrc={item.images[0].url} 
-                                            key={item._id}                                        />
+                                            category={item.category?.category}
+                                            imageSrc={item.images[0].url}                                    
+                                         />
                                     ))
                                 }
                             </View>

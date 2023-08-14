@@ -4,11 +4,11 @@ import { useSelector } from "react-redux"
 import { loadUser } from "../redux/actions/userAction"
 import axios from "axios"
 import { server } from "../redux/store"
+import { getAdminProducts } from "../redux/actions/productAction"
 
 
 export const useMessageAndErrorUser = (navigation,dispatch,navigateTo="login")=>{
     const {loading,message,error} = useSelector((state)=> state.user)
-    console.log("from hook",navigateTo)
     useEffect(()=>{
         if(error){
             Toast.show({
@@ -98,4 +98,24 @@ export const useGetOrders = (isFocused,isAdmin=false)=>{
       return{
         loading,orders
       }
+}
+
+export const useAdminProducts = (dispatch,isFocused) => {
+    const {products,inStock,outOfStock,error,loading} = useSelector(state=>state.product)
+    useEffect(()=>{
+        if(error){
+            Toast.show({
+                type:"error",
+                text1:error
+            })
+            dispatch({
+                type:"clearError",
+            })
+        }
+        dispatch(getAdminProducts())
+    },[dispatch,isFocused,error])
+
+    return{
+        products,inStock,outOfStock,loading
+    }
 }

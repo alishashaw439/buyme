@@ -4,50 +4,42 @@ import { colors } from '../styles/styles'
 import { useNavigation } from '@react-navigation/native'
 import MyModal from './MyModal'
 
-const ProductListItem = ({
-  id,
-  i,
-  key,
-  deleteHandler,
-  price,
-  stock,
-  name,
-  category,
-  imageSrc}:{
+type props = {
+  navigation:any,
   id: any,
-  key:any,
-  i: number
+  i: number,
   deleteHandler: (id:any) => void,
   price: number,
   stock: number
   name: string
   category: any,
   imageSrc: string
-  }) => {
+}
+const ProductListItem = (props:any) => {
   const [openModal,setOpenModal] = useState(false)
-  const navigation = useNavigation()
+
   return (
     <>
       <TouchableOpacity
         onLongPress={()=>setOpenModal((prev)=>!prev)}
-        onPress={() => navigation.navigate("productdetails",{id})}>
+        onPress={() => navigation.navigate("productdetails",props.id)}>
 
         <View style={{
           ...styles.container,
-          backgroundColor: i % 2 === 0 ? colors.color1 : colors.color3
+          backgroundColor: props.i % 2 === 0 ? colors.color1 : colors.color3
         }}>
           <Image style={{
             width: 40,
             height: 40,
             resizeMode: "contain"
-          }} source={{ uri: imageSrc }} />
+          }} source={{ uri: props.imageSrc }} />
 
           <Text style={{
             width: 60,
             color: colors.color2
           }}
             numberOfLines={1}
-          >₹{price}</Text>
+          >₹{props.price}</Text>
 
 
           <Text style={{
@@ -55,30 +47,30 @@ const ProductListItem = ({
             color: colors.color2
           }}
             numberOfLines={1}
-          >{name}</Text>
+          >{props.name}</Text>
 
           <Text style={{
             width: 60,
             color: colors.color2
           }}
             numberOfLines={1}
-          >{category}</Text>
+          >{props.category}</Text>
 
           <Text style={{
             width: 40,
             color: colors.color2
           }}
             numberOfLines={1}
-          >{stock}</Text>
+          >{props.stock}</Text>
 
         </View>
       </TouchableOpacity>
       {
         openModal && (
           <MyModal
-          id={id}
-          deleteHandler={deleteHandler}
-          navigate={navigation}
+          id={props.id}
+          deleteHandler={props.deleteHandler}
+          navigate={props.navigation}
           setOpenModal={setOpenModal}
           />
         )

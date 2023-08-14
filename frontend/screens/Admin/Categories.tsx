@@ -4,25 +4,21 @@ import { Header } from '../../components/Header'
 import { colors, styles } from '../../styles/styles'
 import CategoryCard from '../../components/CategoryCard'
 import { Button } from 'react-native-paper'
+import { useMessageAndErrorOther, useSetCategories } from '../../utils/hooks'
+import { useIsFocused } from '@react-navigation/native'
+import { useDispatch } from 'react-redux'
+import { addCategory } from '../../redux/actions/otherAction'
 
-const categories = [
-    {
-        name: "Laptop",
-        _id: "8836"
-    },
-    {
-        name: "Book",
-        _id: "8236"
-    },
-    {
-        name: "Keys",
-        _id: "81336"
-    }
-]
-const Categories = () => {
+
+const Categories = ({navigation}) => {
     const [category, setCategory] = useState("")
-    const loading = false
+    const [categories,setCategories] = useState([])
+    const isFocused = useIsFocused()
+    const dispatch = useDispatch()
+    useSetCategories(setCategories,isFocused)
+    const loading = useMessageAndErrorOther(dispatch,navigation,"adminpanel")
     const submitHandler = () => {
+        dispatch(addCategory(category))
         console.log(category)
     }
     const deleteHandler = (id: string) => {
@@ -47,7 +43,7 @@ const Categories = () => {
                     {
                         categories.map((i) => (
                             <CategoryCard
-                                name={i.name}
+                                name={i.category}
                                 id={i._id}
                                 key={i._id}
                                 deleteHandler={deleteHandler} />
