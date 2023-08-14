@@ -4,15 +4,17 @@ import { colors, styles } from '../styles/styles'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Button, TextInput } from 'react-native-paper'
 import Footer from '../components/Footer'
+import { forgetPassword } from '../redux/actions/otherAction'
+import { useDispatch } from 'react-redux'
+import { useMessageAndErrorOther } from '../utils/hooks'
 
 export const ForgotPassword = ({ navigation }: { navigation: any }) => {
     const [email, setEmail] = useState("")
+    const dispatch = useDispatch();
+    const loading = useMessageAndErrorOther(dispatch, navigation, "verify");
     const submitHandler = () => {
-        Alert.alert("send OTP")
-        //TODO
-        navigation.navigate("verify")
+        dispatch(forgetPassword(email));
     }
-    const loading = false
     return (
 <>
         <View style={{...styles.defaultStyle,backgroundColor:colors.color2}}>
@@ -26,6 +28,8 @@ export const ForgotPassword = ({ navigation }: { navigation: any }) => {
                         activeOutlineColor={colors.color1}
                         placeholder="Email"
                         keyboardType="email-address"
+                        autoCapitalize='none'
+                        autoCorrect={false}
                         value={email}
                         onChangeText={setEmail}
                     ></TextInput>

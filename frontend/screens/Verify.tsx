@@ -4,16 +4,18 @@ import { colors, styles } from '../styles/styles'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Button, TextInput } from 'react-native-paper'
 import Footer from '../components/Footer'
+import { useMessageAndErrorOther } from '../utils/hooks'
+import { useDispatch } from 'react-redux'
+import { resetPassword } from '../redux/actions/otherAction'
 
 export const Verify = ({ navigation }: { navigation: any }) => {
     const [otp, setOtp] = useState("")
     const [password, setPassword] = useState("")
+    const dispatch = useDispatch();
+  const loading = useMessageAndErrorOther(dispatch, navigation, "login");
     const submitHandler = () => {
-        Alert.alert("send OTP")
-        //TODO
-        navigation.navigate("login")
+        dispatch(resetPassword(otp, password));
     }
-    const loading = false
     return (
 <>
         <View style={{...styles.defaultStyle,backgroundColor:colors.color2}}>
@@ -27,6 +29,8 @@ export const Verify = ({ navigation }: { navigation: any }) => {
                         activeOutlineColor={colors.color1}
                         placeholder="OTP"
                         keyboardType="number-pad"
+                        autoCapitalize='none'
+                        autoCorrect={false}
                         value={otp}
                         onChangeText={setOtp}
                     ></TextInput>
@@ -34,6 +38,8 @@ export const Verify = ({ navigation }: { navigation: any }) => {
                         mode={"outlined"}
                         activeOutlineColor={colors.color1}
                         placeholder="New Password"
+                        autoCapitalize='none'
+                        autoCorrect={false}
                         value={password}
                         onChangeText={setPassword}
                         secureTextEntry={true}

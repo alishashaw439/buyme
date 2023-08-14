@@ -13,11 +13,6 @@ import { useIsFocused } from '@react-navigation/native'
 import mime from "mime"
 import { updatePic } from '../redux/actions/otherAction'
 
-const user = {
-    name: "Alisha",
-    email: "test@gmail.com"
-}
-
 export const Profile = ({ navigation, route }: { navigation: any, route: any }) => {
     const { user } = useSelector(state => state.user)
     const [avatar, setAvatar] =
@@ -68,6 +63,12 @@ export const Profile = ({ navigation, route }: { navigation: any, route: any }) 
         }
         dispatch(loadUser())
     }, [route.params, dispatch, isFocused])
+
+    useEffect(() => {
+        if (user?.avatar) {
+          setAvatar(user.avatar.url);
+        }
+      }, [user]);
     return (
         <>
             <View style={styles.defaultStyle}>
