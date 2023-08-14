@@ -24,7 +24,10 @@ const ProductDetails = ({route}:{route:any}) => {
     name,price,stock,description,images
   }} = useSelector((state)=>state.product)
   const incrementQty = () =>{
-    if(quantity>=stock) return
+    if(quantity>=stock) return Toast.show({
+      type:"error",
+      text1:"Maximum value added"
+    })
     setQuantity((prev)=>prev+1)
   }
 

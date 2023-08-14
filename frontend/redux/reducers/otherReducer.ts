@@ -22,8 +22,8 @@ export const otherReducer = createReducer({},builder=>{
     }).addCase("placeOrderSuccess",(state,action)=>{
         state.loading = true
         state.message = action.payload
-    })addCase("processOrderSuccess",(state,action)=>{
-        state.loading = true
+    }).addCase("processOrderSuccess",(state,action)=>{
+        state.loading = false
         state.message = action.payload
     }).addCase("changePasswordFail",(state,action)=>{
         state.loading = false

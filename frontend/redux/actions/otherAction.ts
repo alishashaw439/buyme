@@ -99,7 +99,6 @@ export const updatePic = (formData) => async(dispatch:any)=>{
 }
 
 export const placeOrder = (shippingInfo,orderItems,paymentMethod,paymentInfo,itemsPrice,taxPrice,shippingCharges,totalAmount) => async (dispatch:any)=>{
-    console.log("yo 1")
     try{
         dispatch({
             type:"placeOrderRequest",
@@ -112,16 +111,38 @@ export const placeOrder = (shippingInfo,orderItems,paymentMethod,paymentInfo,ite
            },
            withCredentials:true
         })
-        console.log("yo 2",data)
         dispatch({
             type:"placeOrderSuccess",
             payload:data.message
         })
 
     }catch(error){
-        console.log("yo error",error)
         dispatch({
             type:"placeOrderFail",
+            payload:error.response.data.message
+        })
+    }
+}
+
+export const processOrder = (id) => async (dispatch:any)=>{
+    try{
+        dispatch({
+            type:"processOrderRequest",
+        })
+        const {data} = await axios.put(`${server}/order/single/${id}`,{},{
+           headers:{
+            "Content-Type":"application/json"
+           },
+           withCredentials:true
+        })
+        dispatch({
+            type:"processOrderSuccess",
+            payload:data.message
+        })
+
+    }catch(error){
+        dispatch({
+            type:"processOrderFail",
             payload:error.response.data.message
         })
     }
