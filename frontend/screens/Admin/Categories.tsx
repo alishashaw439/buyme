@@ -7,7 +7,7 @@ import { Button } from 'react-native-paper'
 import { useMessageAndErrorOther, useSetCategories } from '../../utils/hooks'
 import { useIsFocused } from '@react-navigation/native'
 import { useDispatch } from 'react-redux'
-import { addCategory } from '../../redux/actions/otherAction'
+import { addCategory, deleteCategory } from '../../redux/actions/otherAction'
 
 
 const Categories = ({navigation}) => {
@@ -22,7 +22,7 @@ const Categories = ({navigation}) => {
         console.log(category)
     }
     const deleteHandler = (id: string) => {
-        console.log("deleted category", id)
+        dispatch(deleteCategory(id))
     }
     return (
         <View style={{ ...styles.defaultStyle, backgroundColor: colors.color5 }}>
