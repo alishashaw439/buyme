@@ -1,40 +1,50 @@
 import { View, Text, ScrollView } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { colors, styles } from '../../styles/styles'
 import { Header } from '../../components/Header'
 import Loader from '../../components/Loader'
 import { Button, TextInput } from 'react-native-paper'
 import SelectComponent from '../../components/SelectComponent'
+import { useIsFocused } from '@react-navigation/native'
+import { useDispatch, useSelector } from 'react-redux'
+import { useMessageAndErrorOther, useSetCategories } from '../../utils/hooks'
+import { getProductDetails } from '../../redux/actions/productAction'
+import { updateProduct } from '../../redux/actions/otherAction'
 const UpdateProduct = ({ navigation, route }: { navigation: any, route: any }) => {
-    const loading = false
-    const loadingOther = false
+    const isFocused = useIsFocused();
+    const dispatch = useDispatch();
+    const [visible, setVisible] = useState(false);
+    const { product, loading } = useSelector((state) => state.product);
+
     const [id] = useState(route.params.id)
     const [name,setName] = useState("")
     const [description,setDescription] = useState("")
     const [price,setPrice] = useState("")
     const [stock,setStock] = useState("")
-    const [category,setCategory] = useState("Laptop")
+    const [category,setCategory] = useState("Choose Category")
     const [categoryID,setCategoryID] = useState("")
-    const [categories,setCategories] = useState([
-        { _id:"78468",category:"Furniture"},
-        { _id:"4468",category:"Appliances"},
-        { _id:"8568",category:"Clothes"},
-    ])
-    const images = [
-        {
-            _id:"ugsugd",
-            url:"https://www.pngmart.com/files/12/Bob-Minion-Transparent-PNG.png",
-        },
-        {
-            _id:"jsadcfs",
-            url:"https://www.pngmart.com/files/12/Stuart-Minion-PNG-Pic.png",
-        }
-    ]
-    const [visible,setVisible] = useState(false)
+    const [categories,setCategories] = useState([])
+    useSetCategories(setCategories, isFocused);
 
     const submitHandler = ()=>{
-        console.log(name,description,price,stock,categoryID)
+        dispatch(updateProduct(id, name, description, price, stock, categoryID));
     }
+    const loadingOther = useMessageAndErrorOther(dispatch,navigation,"adminpanel")
+    
+    useEffect(() => {
+        dispatch(getProductDetails(id));
+      }, [dispatch, id, isFocused]);
+
+      useEffect(() => {
+        if (product) {
+          setName(product.name);
+          setDescription(product.description);
+          setPrice(String(product.price));
+          setStock(String(product.stock));
+          setCategory(product.category?.category);
+          setCategoryID(product.category?._id);
+        }
+      }, [product]);
     return (
         <>
         <View style={{
@@ -61,7 +71,7 @@ const UpdateProduct = ({ navigation, route }: { navigation: any, route: any }) =
                             <Button
                                 onPress={() => navigation.navigate("productimages", {
                                     id,
-                                    images: images
+                                    images: product.images
 
                                 })}
                                 textColor={colors.color1}>Manage Images</Button>
