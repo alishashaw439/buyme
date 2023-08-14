@@ -23,6 +23,8 @@ export const otherReducer = createReducer({},builder=>{
         state.loading = false
     }).addCase("deleteProductImageRequest",(state)=>{
         state.loading = false
+    }).addCase("deleteProductRequest",(state)=>{
+        state.loading = false
     }).addCase("changePasswordSuccess",(state,action)=>{
         state.loading = false
         state.message = action.payload
@@ -53,6 +55,9 @@ export const otherReducer = createReducer({},builder=>{
         state.loading = false
         state.message = action.payload
     }).addCase("deleteProductImageSuccess",(state,action)=>{
+        state.loading = false
+        state.message = action.payload
+    }).addCase("deleteProductSuccess",(state,action)=>{
         state.loading = false
         state.message = action.payload
     }).addCase("changePasswordFail",(state,action)=>{
@@ -86,6 +91,9 @@ export const otherReducer = createReducer({},builder=>{
         state.loading = false
         state.error = action.payload
     }).addCase("deleteProductImageFail",(state,action)=>{
+        state.loading = false
+        state.error = action.payload
+    }).addCase("deleteProductFail",(state,action)=>{
         state.loading = false
         state.error = action.payload
     })

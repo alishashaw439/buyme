@@ -313,4 +313,29 @@ export const updateProduct =
       });
     }
   };
+
+  export const deleteProduct = (productId) => async (dispatch) => {
+    try {
+      dispatch({
+        type: "deleteProductRequest",
+      });
+  
+      const { data } = await axios.delete(
+        `${server}/product/single/${productId}`,
+        {
+          withCredentials: true,
+        }
+      );
+  
+      dispatch({
+        type: "deleteProductSuccess",
+        payload: data.message,
+      });
+    } catch (error) {
+      dispatch({
+        type: "deleteProductFail",
+        payload: error.response.data.message,
+      });
+    }
+  };
   

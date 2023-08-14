@@ -7,8 +7,10 @@ import { ProductListHeading } from "../../components/ProductListHeading"
 import ProductListItem from "../../components/ProductListItem"
 import {styles,colors} from "../../styles/styles"
 import { useDispatch } from "react-redux"
-import { useAdminProducts } from "../../utils/hooks"
+import { useAdminProducts, useMessageAndErrorOther } from "../../utils/hooks"
 import { useIsFocused } from "@react-navigation/native"
+import { deleteProduct } from "../../redux/actions/otherAction"
+import { getAdminProducts } from "../../redux/actions/productAction"
 
 export const AdminPanel = ({navigation}:{navigation:any}) => {
     const dispatch = useDispatch()
@@ -31,8 +33,14 @@ export const AdminPanel = ({navigation}:{navigation:any}) => {
     }
     }
      const deleteProductHandler = (id:any)=>{
-        console.log("Deleting id",id)
+        dispatch(deleteProduct(id));
      }
+     const loadingDelete = useMessageAndErrorOther(
+        dispatch,
+        null,
+        null,
+        getAdminProducts
+      );
     return(
         <View style={styles.defaultStyle}>
             <Header emptyCart={false} back={true}></Header>
@@ -81,7 +89,7 @@ export const AdminPanel = ({navigation}:{navigation:any}) => {
                          <ScrollView showsVerticalScrollIndicator={false}>
                             <View>
                                 {
-                                    products.map((item:any,index:any)=>(
+                                   !loadingDelete && products.map((item:any,index:any)=>(
                                         
                                         <ProductListItem 
                                             key={item._id}
