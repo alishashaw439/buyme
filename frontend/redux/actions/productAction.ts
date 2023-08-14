@@ -6,9 +6,11 @@ export const getAllProducts = (keyword,category) => async(dispatch:any)=>{
         dispatch({
             type:"getAllProductsRequest"
         })
+        console.log("call")
         const {data} = await axios.get(`${server}/product/all?keyword=${keyword}&category=${category}`,{
             withCredentials:true
         })
+        console.log(data.products)
         dispatch({
             type:"getAllProductsSuccess",
             payload:data.products

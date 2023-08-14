@@ -5,29 +5,45 @@ import { Header } from '../../components/Header'
 import Loader from '../../components/Loader'
 import { Avatar, Button, TextInput } from 'react-native-paper'
 import SelectComponent from '../../components/SelectComponent'
+import { useMessageAndErrorOther, useSetCategories } from '../../utils/hooks'
+import { useIsFocused } from '@react-navigation/native'
+import { useDispatch } from 'react-redux'
+import mime from 'mime'
+import { createProduct } from '../../redux/actions/otherAction'
 const NewProduct = ({ navigation, route }: { navigation: any, route: any }) => {
-    const loading = false
+    const isFocused = useIsFocused()
+    const [visible,setVisible] = useState(false)
+    const dispatch = useDispatch()
     const [name,setName] = useState("")
     const [image,setImage] = useState("")
     const [description,setDescription] = useState("")
     const [price,setPrice] = useState("")
     const [stock,setStock] = useState("")
-    const [category,setCategory] = useState("Laptop")
-    const [categoryID,setCategoryID] = useState("")
-    const [categories,setCategories] = useState([
-        { _id:"78468",category:"Furniture"},
-        { _id:"4468",category:"Appliances"},
-        { _id:"8568",category:"Clothes"},
-    ])
-    const [visible,setVisible] = useState(false)
+    const [category,setCategory] = useState("Choose Category")
+    const [categoryID,setCategoryID] = useState(undefined)
+    const [categories,setCategories] = useState([])
+    useSetCategories(setCategories,isFocused)
+    const disableCondition = !name || !description || !price || !stock || !image
     useEffect(()=>{
-        if(route.params.images){
+        if(route.params?.images){
             setImage(route.params.images[0].uri)
         }
     },[route.params])
     const submitHandler = ()=>{
-        console.log(name,description,price,stock,categoryID)
+        const myForm = new FormData()
+        myForm.append("name",name)
+        myForm.append("description",description)
+        myForm.append("price",price)
+        myForm.append("stock",stock)
+        myForm.append("file",{
+            uri:image,
+            type:mime.getType(image),
+            name:image.split("/").pop()
+        })
+       if(categoryID) myForm.append("category",categoryID) 
+        dispatch(createProduct(myForm))
     }
+    const loading = useMessageAndErrorOther(dispatch,navigation,"adminpanel")
     return (
         <>
         <View style={{
@@ -39,8 +55,8 @@ const NewProduct = ({ navigation, route }: { navigation: any, route: any }) => {
             <View style={{ marginBottom: 20, paddingTop: 70 }}>
                 <Text style={styles.heading}>New Product</Text>
             </View>
-            {
-                loading ? <Loader /> : (
+            
+           
                     <ScrollView style={{
                         padding: 20,
                         elevation: 10,
@@ -63,7 +79,7 @@ const NewProduct = ({ navigation, route }: { navigation: any, route: any }) => {
 
                                 }}
                                 source={{
-                                    uri:image ? image : ""
+                                    uri:image ? image : undefined
                                 }}
                                 ></Avatar.Image>
                                 <TouchableOpacity onPress={()=>navigation.navigate("camera",{newProduct:true})}>
@@ -115,12 +131,12 @@ const NewProduct = ({ navigation, route }: { navigation: any, route: any }) => {
                             }} 
                             onPress={submitHandler}
                             loading={loading}
-                            disabled={loading}
+                            disabled={disableCondition || loading}
                             textColor={colors.color2}>Create</Button>
                         </View>
                     </ScrollView>
-                )
-            }
+                
+            
         </View>
         <SelectComponent visible={visible} setVisible={setVisible} 
         setCategory={setCategory} setCategoryID={setCategoryID} categories={categories}/>

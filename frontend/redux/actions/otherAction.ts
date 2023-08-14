@@ -195,3 +195,32 @@ export const deleteCategory = (id) => async (dispatch:any)=>{
         })
     }
 }
+
+export const createProduct = (formData) => async(dispatch:any)=>{
+    try{
+        dispatch({
+            type:"addProductRequest"
+        })
+        console.log("yoooo")
+        const {data} = await axios.post(`${server}/product/new`,formData,{
+            headers:{
+                "Content-type":"multipart/form-data"
+            },
+            withCredentials:true
+        })
+        console.log("yoo2",data)
+        dispatch({
+            type:"addProductSuccess",
+            payload:data.message
+        })
+    }catch(error){
+        if (error.response) {
+            console.log(error.response.status);
+            console.log(error.response.data);
+          }
+        dispatch({
+            type:"addProductFail",
+            payload: error.response.data.message
+        })
+    }
+}

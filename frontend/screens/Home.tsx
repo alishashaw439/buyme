@@ -48,12 +48,12 @@ export const Home = () => {
 
    useSetCategories(setCategories,isFocused)
    useEffect(()=>{
-    const timeOutId = setTimeout(()=>{
+   
         dispatch(getAllProducts(searchQuery,category))
-    },500)
-    return ()=>{
-        clearTimeout(timeOutId)
-    }
+  
+    // return ()=>{
+    //     clearTimeout(timeOutId)
+    // }
    },[dispatch,searchQuery,category,isFocused])
 
     return (
