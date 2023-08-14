@@ -5,13 +5,16 @@ import { Header } from '../../components/Header'
 import { Headline } from 'react-native-paper'
 import Loader from '../../components/Loader'
 import OrderItem from '../../components/OrderItem'
-import { orders } from '../Orders'
+import { useIsFocused } from '@react-navigation/native'
+import { useGetOrders } from '../../utils/hooks'
+
 
 const AdminOrders = () => {
-    const loading = false
+    const isFocused = useIsFocused()
+    const {loading,orders} = useGetOrders(isFocused,true)
     const processOrderLoading = false
-    const updateHandler = () => {
-
+    const updateHandler = (id) => {
+        console.log(id)
     }
     return (
         <View style={{
@@ -34,8 +37,8 @@ const AdminOrders = () => {
                             {
                                 orders.length > 0 ? orders.map((item, index) => (
                                     <OrderItem
-                                        key={item.id}
-                                        id={item.id}
+                                        key={item._id}
+                                        id={item._id}
                                         i={index}
                                         price={item.totalAmount}
                                         orderStatus={item.orderStatus}

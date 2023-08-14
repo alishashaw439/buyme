@@ -5,50 +5,12 @@ import { Header } from '../components/Header'
 import Loader from '../components/Loader'
 import { Headline } from 'react-native-paper'
 import OrderItem from '../components/OrderItem'
+import { useGetOrders } from '../utils/hooks'
+import { useIsFocused } from '@react-navigation/native'
 
-export const orders = [
-    {
-        id: "234",
-        shippingInfo: {
-            address: "amazon fullfilment",
-            city: "Kolkata",
-            country: "India",
-            pincode: 700034
-        },
-        createdAt: "12-2-2022T743",
-        orderStatus: "Processing",
-        paymentMethod: "COD",
-        totalAmount: 300
-    },
-    {
-        id: "134",
-        shippingInfo: {
-            address: "amazon fullfilment",
-            city: "Rishikesh",
-            country: "India",
-            pincode: 700034
-        },
-        createdAt: "12-2-2022T873",
-        orderStatus: "Processing",
-        paymentMethod: "COD",
-        totalAmount: 300
-    },
-    {
-        id: "104",
-        shippingInfo: {
-            address: "amazon fullfilment",
-            city: "Vrindavan",
-            country: "India",
-            pincode: 700034
-        },
-        createdAt: "12-2-2022T873",
-        orderStatus: "Processing",
-        paymentMethod: "COD",
-        totalAmount: 300
-    }
-]
 const Orders = () => {
-    const loading = false
+    const isFocused = useIsFocused()
+    const {loading,orders} = useGetOrders(isFocused)
     return (
         <View style={{
             ...styles.defaultStyle,
@@ -68,14 +30,14 @@ const Orders = () => {
                             {
                                 orders.length > 0 ? orders.map((item, index) => (
                                     <OrderItem
-                                        key={item.id}
-                                        id={item.id}
+                                        key={item._id}
+                                        id={item._id}
                                         i={index}
                                         price={item.totalAmount}
                                         orderStatus={item.orderStatus}
                                         orderedOn={item.createdAt.split("T")[0]}
                                         paymentMethod={item.paymentMethod}
-                                        address={`${item.shippingInfo.address}, ${item.shippingInfo.city}, ${item.shippingInfo.country} ${item.shippingInfo.pincode}`}
+                                        address={`${item.shippingInfo.address}, ${item.shippingInfo.city}, ${item.shippingInfo.country} ${item.shippingInfo.pinCode}`}
                                     ></OrderItem>
                                 )) : <Headline
                                     style={{

@@ -6,10 +6,10 @@ import Loader from "../../components/Loader"
 import { ProductListHeading } from "../../components/ProductListHeading"
 import ProductListItem from "../../components/ProductListItem"
 import {styles,colors} from "../../styles/styles"
-import { products } from "../Home"
 
 export const AdminPanel = ({navigation}:{navigation:any}) => {
     const loading = false
+    const products = []
     const navigationHandler = (text:string) =>{
     switch(text){
         case "Category":
