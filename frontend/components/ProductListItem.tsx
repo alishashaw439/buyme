@@ -22,7 +22,7 @@ const ProductListItem = (props:any) => {
     <>
       <TouchableOpacity
         onLongPress={()=>setOpenModal((prev)=>!prev)}
-        onPress={() => navigation.navigate("productdetails",props.id)}>
+        onPress={() => props.navigation.navigate("productdetails",props.id)}>
 
         <View style={{
           ...styles.container,
